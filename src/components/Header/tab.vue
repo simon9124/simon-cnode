@@ -1,27 +1,36 @@
 <template>
   <scroll-view class="tabs"
                scroll-x>
+
+    <!-- 标签 -->
     <view v-for="(item,index) in navList"
           :key="index"
           class="tabs-item"
-          :data-current="index">{{item.title}}</view>
-    <!-- @tap="swichNav" -->
+          :data-current="index"
+          @tap="swichNav(index)">
+      {{item.title}}
+    </view>
+
   </scroll-view>
 </template>
 
 <script>
+// function
+import Bus from '@/utils/bus';
+import { navList } from '@/common/data.js';
+
 export default {
   data () {
     return {
-      navList: [
-        { title: '首页', type: 'all' },
-        { title: '新手入门', type: 'good' },
-        { title: 'API', type: 'share' },
-        { title: '关于', type: 'ask' },
-        { title: '注册', type: 'job' },
-        { title: '登录', type: 'dev' }
-      ]
+      // 标签list
+      navList: navList
     };
+  },
+  methods: {
+    // 切换标签 -> 传递给兄弟组件
+    swichNav (index) {
+      Bus.$emit('tabChange', index);
+    }
   }
 };
 </script>

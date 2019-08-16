@@ -6,7 +6,10 @@
       <img src="http://static2.cnodejs.org/public/images/cnodejs_light.svg">
 
       <!-- search -->
-      <input :value="searchValue" />
+      <input confirm-type="search"
+             :value="searchValue"
+             @focus="searchFocus"
+             @confirm="search($event)" />
 
       <!-- 头部导航栏 -->
       <tab></tab>
@@ -25,8 +28,18 @@ export default {
   },
   data () {
     return {
+      // 搜索框
       searchValue: ''
     };
+  },
+  methods: {
+    // 输入框获取焦点
+    searchFocus () {},
+    // 点击搜索
+    search (e) {
+      // console.log(e.target.value);
+      this.searchValue = e.target.value;
+    }
   }
 };
 </script>
@@ -48,8 +61,9 @@ export default {
       font-size: 13px;
       width: 233px;
       height: 26px;
-      background: url("../../../static/images/Search.png") no-repeat #888;
-      padding-left: 20px;
+      background: url("http://static2.cnodejs.org/public/images/search.e53b380a.hashed.png")
+        4px 4px no-repeat #888;
+      padding-left: 25px;
       border-radius: 15px;
     }
   }

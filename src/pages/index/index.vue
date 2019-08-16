@@ -1,16 +1,19 @@
 <template>
-  <div>
+  <div class="container">
     <header-container></header-container>
+    <content-container></content-container>
   </div>
 </template>
 
 <script>
 // components
 import HeaderContainer from '@/components/Header';
+import ContentContainer from '@/components/Content';
 
 export default {
   components: {
-    HeaderContainer
+    HeaderContainer,
+    ContentContainer
   },
   data () {
     return {};
@@ -19,5 +22,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
+.container {
+  height: 100%;
+  background-color: #e1e1e1;
+}
 </style>
