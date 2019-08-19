@@ -5,26 +5,26 @@
       <!-- 内容滑块 -->
       <swiper duration="300"
               circular
-              skip-hidden-item-layout="true"
+              :skip-hidden-item-layout="true"
               :current="currentTab"
               class="swiper-box">
         <swiper-item>
-          <div class="swiper-box-item">首页</div>
+          <home-page></home-page>
         </swiper-item>
         <swiper-item>
-          <div class="swiper-box-item">新手入门</div>
+          <new-page></new-page>
         </swiper-item>
         <swiper-item>
-          <div class="swiper-box-item">API</div>
+          <api-page></api-page>
         </swiper-item>
         <swiper-item>
-          <div class="swiper-box-item">关于</div>
+          <about-page></about-page>
         </swiper-item>
         <swiper-item>
-          <div class="swiper-box-item">注册</div>
+          <register-page></register-page>
         </swiper-item>
         <swiper-item>
-          <div class="swiper-box-item">登录</div>
+          <login-page></login-page>
         </swiper-item>
       </swiper>
 
@@ -35,8 +35,23 @@
 <script>
 // function
 import Bus from '@/utils/bus';
+// components
+import HomePage from '@/components/Content/Home';
+import NewPage from '@/components/Content/new';
+import ApiPage from '@/components/Content/api';
+import AboutPage from '@/components/Content/about';
+import RegisterPage from '@/components/Content/register';
+import LoginPage from '@/components/Content/login';
 
 export default {
+  components: {
+    HomePage,
+    NewPage,
+    ApiPage,
+    AboutPage,
+    RegisterPage,
+    LoginPage
+  },
   data () {
     return {
       // 当前所在滑块 index
@@ -56,19 +71,14 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .container-content {
   height: 100%;
-  padding: 10px 5px;
+  padding: 20px 5px;
   &-inner {
     background: #fff;
     border-radius: 5px;
     .swiper-box {
-      display: block;
+      // display: block;
       width: 100%;
-      overflow: hidden;
-      &-item {
-        // width: 355px;
-        // height: 150px;
-        // background: #000;
-      }
+      // overflow: hidden;
     }
   }
 }
