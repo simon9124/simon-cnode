@@ -55,7 +55,7 @@ export default {
   data () {
     return {
       // 当前所在滑块 index
-      currentTab: 0
+      currentTab: 2
     };
   },
   created () {
@@ -69,17 +69,5 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.container-content {
-  height: 100%;
-  padding: 20px 5px;
-  &-inner {
-    background: #fff;
-    border-radius: 5px;
-    .swiper-box {
-      // display: block;
-      width: 100%;
-      // overflow: hidden;
-    }
-  }
-}
+@import "~@/common/content.scss";
 </style>

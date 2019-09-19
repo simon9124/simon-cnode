@@ -48,6 +48,7 @@ export default {
 .container-header {
   position: relative;
   background: #444;
+  // box-sizing: border-box;
   &-inner {
     width: 90%;
     margin: auto;

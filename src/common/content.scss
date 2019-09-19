@@ -1,0 +1,144 @@
+/* 容器 */
+.container-content {
+  height: calc(100vh - 136px);
+  // padding: 20px 5px;
+  background: #fff;
+
+  .container-content-inner {
+
+    // background: #fff;
+    // border-radius: 5px;
+    .swiper-box {
+      height: calc(100vh - 136px);
+      padding: 10px 5px 0;
+
+      swiper-item {
+        overflow: auto;
+
+        scroll-view {
+          border-radius: 5px;
+          border: 1px solid #e5e5e5;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}
+
+/* 内容 */
+.container-content-common /deep/ {
+
+  .container-content-common-header {
+    height: 40px;
+    background: #f6f6f6;
+    padding-left: 10px;
+
+    .breadcrumb {
+      font-size: 14px;
+      line-height: 40px;
+      color: #999;
+
+      &-slant {
+        color: #ccc;
+      }
+
+      &-dashboard {
+        color: #80bd01;
+      }
+    }
+  }
+
+  .container-content-common-content {
+    border-top: 1px solid #e5e5e5;
+    padding: 10px 10px;
+
+    // 标题
+    .title {
+      // margin: 30px 10px;
+      margin: 30px 0;
+      border-bottom: 1px solid #eee;
+
+
+      &-main {
+        font-size: 24.5px;
+        line-height: 40px;
+      }
+
+      &-sub {
+        font-size: 17.5px;
+        line-height: 20px;
+        margin-bottom: 15px;
+      }
+    }
+
+    // 正文
+    .txt {
+      font-size: 15px;
+      line-height: 1.7em;
+      overflow: auto;
+      text-align: justify;
+      word-break: break-all;
+
+      p {
+        &:not(:first-child) {
+          margin-top: 1em;
+        }
+
+        a {
+          color: #08c;
+          text-decoration: underline;
+          display: inline;
+        }
+
+        // ul {
+        // 小程序无序列表小圆点无效
+        // list-style-type: disc !important;
+
+        li {
+          font-size: 14px;
+          line-height: 2em;
+
+          code {
+            display: inline-block;
+            color: #000;
+            background-color: #fcfafa;
+            padding: 4px 6px;
+            font-size: 12px;
+          }
+        }
+
+        // }
+
+        pre {
+          font-family: Monaco,
+            Menlo,
+            Consolas,
+            "Courier New",
+            monospace;
+          font-size: 14px;
+          padding: 0 15px;
+          margin: 20px -10px 0 -10px;
+          background: #f7f7f7;
+          tab-size: 4;
+          line-height: 22px;
+          // word-break: break-all;
+          // word-wrap: break-word;
+          // white-space: pre-wrap;
+
+          code {
+            display: inline-block;
+            color: #000;
+            background-color: #fcfafa;
+            padding: 4px 6px;
+            font-size: 12px;
+
+            .json-str {
+              color: #080;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

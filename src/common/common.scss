@@ -8,4 +8,20 @@
 
 page {
   height: 100%;
+  font-family: "Helvetica Neue",
+    "Luxi Sans",
+    "DejaVu Sans",
+    Tahoma,
+    "Hiragino Sans GB",
+    STHeiti,
+    sans-serif !important;
+  color: #333;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.justify {
+  text-align: justify;
 }

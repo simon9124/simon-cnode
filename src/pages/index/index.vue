@@ -24,7 +24,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .container {
-  height: 100%;
+  height: auto;
   background-color: #e1e1e1;
 }
 </style>
