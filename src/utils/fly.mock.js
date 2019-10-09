@@ -1,19 +1,17 @@
-import fly from 'flyio';
-// import Fly from 'flyio';
-// // import wxEngine from 'flyio/../engine-wrapper'
-// const fly = new Fly();
+var Fly = require('flyio/dist/npm/wx');
+var fly = new Fly();
 
 // 配置请求基地址
-fly.config.baseURL = ' https://www.easy-mock.com/mock/5d714553f707d46c388c220b/api/';
+fly.config.baseURL = 'http://rap2api.taobao.org/app/mock/232650/';
 
 // //添加请求拦截器
 // fly.interceptors.request.use((config, promise) => {
-//     //给所有请求添加自定义header
-//     config.headers["X-Tag"] = "flyio";
-//     //可以通过promise.reject／resolve直接中止请求
-//     //promise.resolve("fake data")
-//     return config;
-// })
+//   // 给所有请求添加自定义header
+//   config.headers['X-Tag'] = 'flyio';
+//   // 可以通过promise.reject／resolve直接中止请求
+//   // promise.resolve("fake data")
+//   return config;
+// });
 
 // 添加响应拦截器，响应拦截器会在then/catch处理之前执行
 fly.interceptors.response.use(

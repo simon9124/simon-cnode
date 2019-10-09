@@ -73,7 +73,7 @@
 
     // 正文
     .txt {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.7em;
       overflow: auto;
       text-align: justify;
@@ -86,30 +86,42 @@
 
         a {
           color: #08c;
-          text-decoration: underline;
+          text-decoration: none;
           display: inline;
         }
 
-        // ul {
-        // 小程序无序列表小圆点无效
-        // list-style-type: disc !important;
+        ul {
+          // 小程序无序列表小圆点无效
+          // list-style-type: disc !important;
+          padding-left: 10px;
 
-        li {
-          font-size: 14px;
-          line-height: 2em;
+          li {
+            font-size: 14px;
+            line-height: 2em;
 
-          code {
-            display: inline-block;
-            color: #000;
-            background-color: #fcfafa;
-            padding: 4px 6px;
-            font-size: 12px;
+
+            code {
+              display: inline-block;
+              color: #000;
+              background-color: #fcfafa;
+              padding: 4px 6px;
+              font-size: 12px;
+            }
           }
+
+          // mpvue小程序穿透无效
+          // li>>>code {
+          //   display: inline-block;
+          //   color: #000;
+          //   background-color: #fcfafa;
+          //   padding: 4px 6px;
+          //   font-size: 12px;
+          // }
+
         }
 
-        // }
-
-        pre {
+        pre,
+        .topic-pre {
           font-family: Monaco,
             Menlo,
             Consolas,
@@ -127,7 +139,8 @@
 
           code {
             display: inline-block;
-            color: #000;
+            // color: #000;
+            color: #333;
             background-color: #fcfafa;
             padding: 4px 6px;
             font-size: 12px;

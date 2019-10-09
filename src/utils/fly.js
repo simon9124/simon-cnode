@@ -1,4 +1,5 @@
-import fly from 'flyio';
+var Fly = require('flyio/dist/npm/wx');
+var fly = new Fly();
 
 // 配置请求基地址
 fly.config.baseURL = 'https://cnodejs.org/api/v1/';

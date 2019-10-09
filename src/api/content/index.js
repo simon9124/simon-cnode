@@ -1,9 +1,9 @@
 import fly from '@/utils/fly.mock';
+// import fly from '@/utils/fly';
 
-// 新增
+// 获取页面内容 - api
 export function getContentApi () {
-  return fly.request({
-    url: '/content/getContentApi',
+  return fly.request('content/getContentApi', null, {
     method: 'get'
   });
 }
