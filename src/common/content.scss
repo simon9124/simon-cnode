@@ -52,12 +52,15 @@
     border-top: 1px solid #e5e5e5;
     padding: 10px 10px;
 
+    // 引子
+    .intro {
+      margin-bottom: 30px;
+    }
+
     // 标题
     .title {
-      // margin: 30px 10px;
-      margin: 30px 0;
+      margin: 30px 0 15px 0;
       border-bottom: 1px solid #eee;
-
 
       &-main {
         font-size: 24.5px;
@@ -67,7 +70,6 @@
       &-sub {
         font-size: 17.5px;
         line-height: 20px;
-        margin-bottom: 15px;
       }
     }
 
@@ -152,6 +154,18 @@
         }
       }
 
+      .article {
+        margin-top: 1em;
+      }
+    }
+
+    // 循环的block -> 去掉一些特殊情况的margin
+    .block {
+      &:first-child {
+        .title-main {
+          margin-top: 0;
+        }
+      }
     }
   }
 }
