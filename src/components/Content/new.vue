@@ -42,11 +42,10 @@
             </div>
           </div>
 
-          <div class="title title-main bold"
-               style="margin-bottom:15px">Node.js 服务器</div>
-          <div class="txt">
-            <p>新手搭建 Node.js 服务器，推荐使用无需备案的
-              <a href="https://www.digitalocean.com/">DigitalOcean(https://www.digitalocean.com/)</a>
+          <!-- 主标题下属内容：txt_main -->
+          <div v-if="item.txt_main!==undefined"
+               class="txt txt-content">
+            <p v-html="item.txt_main">
             </p>
           </div>
 

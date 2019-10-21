@@ -52,13 +52,13 @@ export default {
     RegisterPage,
     LoginPage
   },
-  data () {
+  data() {
     return {
       // 当前所在滑块 index
-      currentTab: 1
+      currentTab: 3
     };
   },
-  created () {
+  created() {
     // 接收兄弟组件事件 - 标签切换
     Bus.$on('tabChange', index => {
       this.currentTab = index;
