@@ -171,5 +171,64 @@
         }
       }
     }
+
+    // 登录表单
+    .login-form {
+      padding: 0 20px 10px 10px;
+
+      &-label {
+        display: inline-block;
+        width: 18%;
+        font-size: 14px;
+        margin-top: 15px;
+      }
+
+      &-input {
+        display: inline-block;
+        width: 82%;
+        height: 30px;
+        box-sizing: border-box;
+
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        padding: 4px 6px;
+        vertical-align: bottom;
+        margin-top: 15px;
+
+        .weui-input {
+          height: 20px;
+          line-height: 20px;
+          min-height: 20px;
+        }
+      }
+
+      &-buttons {
+        button {
+          padding: 3px 10px;
+          color: #fff;
+          background-color: #5bc0de;
+          line-height: 2em;
+          letter-spacing: 2px;
+          border-radius: 3px;
+          margin-right: 15px;
+          vertical-align: bottom;
+          min-width: auto;
+
+          &:first-child {
+            background-color: #08c;
+            margin-right: 5px;
+          }
+        }
+
+        .link {
+          color: #778087;
+          line-height: 2em;
+          font-size: 14px;
+          word-break: break-word;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

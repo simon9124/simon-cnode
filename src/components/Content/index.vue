@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       // 当前所在滑块 index
-      currentTab: 3
+      currentTab: 5
     };
   },
   created() {

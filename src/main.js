@@ -4,10 +4,8 @@ import App from './App';
 // css
 import '@/common/common.scss';
 
-// flyio
-// import fly from 'flyio';
-// import fly from '@/utils/fly.mock.js';
-// Vue.prototype.$fly = fly;
+// mpvue-weui
+import 'mpvue-weui/src/style/weui.css';
 
 Vue.config.productionTip = false;
 App.mpType = 'app';

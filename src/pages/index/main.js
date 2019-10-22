@@ -10,3 +10,12 @@ Vue.config.errorHandler = function (err) {
 
 const app = new Vue(App);
 app.$mount();
+
+export default {
+  config: {
+    usingComponents: {
+      // 'i-row': '../../../static/iview/row/index',
+      // 'i-col': '../../../static/iview/col/index'
+    }
+  }
+};
