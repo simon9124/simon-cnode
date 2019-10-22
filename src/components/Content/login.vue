@@ -23,7 +23,16 @@
             用户名
           </div>
           <div class="login-form-input">
-            <mp-input v-model="formData.username"></mp-input>
+            <input ref="username"
+                   @input="inputRef"
+                   maxlength="20">
+            <!-- <i-input v-model="formData.username"
+                     title=""
+                     autofocus
+                     placeholder="名字"
+                     maxlength="10" /> -->
+            <!-- <mp-input v-model="formData.username"
+                      placeholder=""></mp-input> -->
           </div>
 
           <!-- 密码 -->
@@ -31,14 +40,17 @@
             密码
           </div>
           <div class="login-form-input">
-            <mp-input v-model="formData.password"></mp-input>
+            <mp-input v-model="formData.password"
+                      placeholder=""
+                      password></mp-input>
           </div>
 
           <!-- 按钮 -->
           <div class="login-form-buttons">
             <mp-button type="default"
                        size="small"
-                       btnClass="login-button">登录</mp-button>
+                       btnClass="login-button"
+                       @click="handleLogin">登录</mp-button>
             <mp-button type="default"
                        size="small"
                        btnClass="login-button">通过 GitHub 登录</mp-button>
@@ -67,11 +79,15 @@ export default {
       }
     };
   },
-  created() {
-    this.getData();
-  },
   methods: {
-    async getData() {}
+    inputRef(event) {
+      console.log(event.mp.detail.value);
+    },
+    handleLogin() {
+      console.log(this.$refs.username);
+      // console.log(this.$refs.username.value);
+      // console.log(this.formData);
+    }
   }
 };
 </script>

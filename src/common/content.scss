@@ -196,7 +196,9 @@
         vertical-align: bottom;
         margin-top: 15px;
 
-        .weui-input {
+        .weui-input,
+        .i-input,
+        input {
           height: 20px;
           line-height: 20px;
           min-height: 20px;
