@@ -1,15 +1,10 @@
 /* 容器 */
 .container-content {
-  height: calc(100vh - 136px);
-  // padding: 20px 5px;
-  background: #fff;
+  height: calc(100vh - 130px);
 
   .container-content-inner {
-
-    // background: #fff;
-    // border-radius: 5px;
     .swiper-box {
-      height: calc(100vh - 136px);
+      height: calc(100vh - 145px);
       padding: 10px 5px 0;
 
       swiper-item {
@@ -27,7 +22,6 @@
 
 /* 内容 */
 .container-content-common /deep/ {
-
   .container-content-common-header {
     height: 40px;
     background: #f6f6f6;
@@ -49,8 +43,9 @@
   }
 
   .container-content-common-content {
-    border-top: 1px solid #e5e5e5;
+    background: #fff;
     padding: 10px 10px;
+    border-top: 1px solid #e5e5e5;
 
     // 引子
     .intro {
@@ -174,13 +169,13 @@
 
     // 登录表单
     .login-form {
-      padding: 0 20px 10px 10px;
+      padding: 0 20px 20px 10px;
 
       &-label {
         display: inline-block;
         width: 18%;
         font-size: 14px;
-        margin-top: 15px;
+        margin-top: 20px;
       }
 
       &-input {
@@ -194,7 +189,7 @@
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
         padding: 4px 6px;
         vertical-align: bottom;
-        margin-top: 15px;
+        margin-top: 20px;
 
         .weui-input,
         .i-input,
@@ -202,11 +197,21 @@
           height: 20px;
           line-height: 20px;
           min-height: 20px;
+          font-size: 14px;
+        }
+
+        .password-img {
+          width: 20px;
+          height: 20px;
+          top: 3px;
+          right: 5px;
+          z-index: 10;
         }
       }
 
       &-buttons {
         button {
+          margin-top: 20px;
           padding: 3px 10px;
           color: #fff;
           background-color: #5bc0de;
@@ -230,6 +235,11 @@
           word-break: break-word;
           cursor: pointer;
         }
+      }
+
+      &-explain {
+        font-size: 12px;
+        margin-top: 10px;
       }
     }
   }

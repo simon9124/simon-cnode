@@ -15,7 +15,7 @@ export default {
     HeaderContainer,
     ContentContainer
   },
-  data () {
+  data() {
     return {};
   },
   methods: {}
@@ -23,8 +23,4 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.container {
-  height: auto;
-  background-color: #e1e1e1;
-}
 </style>
