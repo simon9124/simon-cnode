@@ -9,5 +9,11 @@
     "navigationBarBackgroundColor": "#444",
     "navigationBarTitleText": "cnode社区",
     "navigationBarTextStyle": "white"
+  },
+  "networkTimeout": {
+    "request": 1000000,
+    "connectSocket": 100000,
+    "uploadFile": 100000,
+    "downloadFile": 100000
   }
 }
