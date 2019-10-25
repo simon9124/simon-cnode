@@ -22,7 +22,7 @@
 > * 在 mpvue 中使用 iview weapp 或 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input($event)事件监听输入内容的变化）
 > * 在 mpvue 中使用 iview weapp 等第三方组件库的方法：
 
-**下载启动步骤**：
+**下载启动步骤：**
 
 ```bash
 1.  git clone https://github.com/simon9124/simon-cnode.git；
@@ -40,4 +40,36 @@ npm run build
 npm run build --report
 
 3.  小程序开发工具指向下面的 dist 目录
+```
+
+**mpvue 构建新项目步骤：**
+
+```bash
+# 初始化项目
+vue init mpvue/mpvue-quickstart myproject
+cd myproject
+
+# 安装依赖
+yarn
+
+# 开发时构建
+npm dev
+
+# 打包构建
+npm build
+
+# 指定平台的开发时构建(微信、百度、头条、支付宝)
+npm dev:wx
+npm dev:swan
+npm dev:tt
+npm dev:my
+
+# 指定平台的打包构建
+npm build:wx
+npm build:swan
+npm build:tt
+npm build:my
+
+# 生成 bundle 分析报告
+npm run build --report
 ```
