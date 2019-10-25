@@ -21,3 +21,23 @@
 > * 小程序无序列表小圆点无效：list-style-type: disc !important;
 > * 在 mpvue 中使用 iview weapp 或 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input($event)事件监听输入内容的变化）
 > * 在 mpvue 中使用 iview weapp 等第三方组件库的方法：
+
+**下载启动步骤**：
+
+```bash
+1.  git clone https://github.com/simon9124/simon-cnode.git；
+2.
+ # install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+3.  小程序开发工具指向下面的 dist 目录
+```
