@@ -21,6 +21,15 @@
 > * 小程序无序列表小圆点无效：list-style-type: disc !important;
 > * 在 mpvue 中使用 iview weapp 或 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input($event)事件监听输入内容的变化）
 > * 在 mpvue 中使用 iview weapp 等第三方组件库的方法：
+> * swiper 组件禁止手动滑动的方法：
+
+```bash
+<swiper-item @touchmove.stop.prevent='catchTouchMove'></swiper>
+
+catchTouchMove() {
+  return false;
+}
+```
 
 **下载启动步骤：**
 
