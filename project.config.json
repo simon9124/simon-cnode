@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": false,
 		"postcss": true,
@@ -22,7 +22,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wx93a4d56f668f1f89",
+	"appid": "wxc21c4f3e962ebbe6",
 	"projectname": "simon-cnode",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
