@@ -3,6 +3,7 @@ import App from './App';
 
 // css
 import '@/common/common.scss';
+import 'mpvue-wxparse/src/wxParse.css';
 
 // mpvue-weui
 import 'mpvue-weui/src/style/weui.css';

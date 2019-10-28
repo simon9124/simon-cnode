@@ -44,7 +44,7 @@
 
 <script>
 // api
-import { getContentApi } from '@/api/content/index.js';
+// import { getContentApi } from '@/api/content/index.js';
 // mockData
 import { AboutData } from './mockContent';
 
@@ -59,7 +59,8 @@ export default {
   },
   methods: {
     async getData() {
-      console.log((await getContentApi()).data);
+      // await getContentApi();
+      // console.log((await getContentApi()).data);
       // this.content = (await getContentApi()).data;
       // console.log(this.content);
     }

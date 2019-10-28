@@ -15,8 +15,9 @@ export default {
   config: {
     usingComponents: {
       // 'i-row': '../../../static/iview/row/index',
-      // 'i-col': '../../../static/iview/col/index'
-      // 'i-input': '../../../static/iview/input/index'
+      // 'i-col': '../../../static/iview/col/index',
+      // 'i-input': '../../../static/iview/input/index',
+      // 'i-tag': '../../../static/iview/tag/index'
     }
   }
 };

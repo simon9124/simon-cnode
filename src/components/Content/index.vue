@@ -6,6 +6,7 @@
       <swiper duration="300"
               circular
               :skip-hidden-item-layout="true"
+              :bindchange="swiperTab"
               :current="currentTab"
               class="swiper-box">
         <swiper-item>
@@ -55,7 +56,8 @@ export default {
   data() {
     return {
       // 当前所在滑块 index
-      currentTab: 5
+      currentTab: 0,
+      startX: 0
     };
   },
   created() {
@@ -64,7 +66,11 @@ export default {
       this.currentTab = index;
     });
   },
-  methods: {}
+  methods: {
+    swiperTab(e) {
+      console.log(e);
+    }
+  }
 };
 </script>
 

@@ -9,7 +9,7 @@
           <span href='/'
                 class="breadcrumb-dashboard">主页</span>
           <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
-          <span>新手入门</span>
+          <span>Node.js 新手入门</span>
         </div>
       </div>
 
@@ -60,7 +60,7 @@
 
 <script>
 // api
-import { getContentApi } from '@/api/content/index.js';
+// import { getContentApi } from '@/api/content/index.js';
 // mockData
 import { NewData } from './mockContent';
 
@@ -75,7 +75,8 @@ export default {
   },
   methods: {
     async getData() {
-      console.log((await getContentApi()).data);
+      // await getContentApi();
+      // console.log((await getContentApi()).data);
       // this.content = (await getContentApi()).data;
       // console.log(this.content);
     }
