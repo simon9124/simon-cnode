@@ -24,6 +24,7 @@
 > * swiper 组件禁止手动滑动的方法：
 
 ```bash
+ # 禁止siper组件滑动（左右上下均禁止滑动，内容若超出页面则不适用此方法）
 <swiper-item @touchmove.stop.prevent='catchTouchMove'></swiper>
 
 catchTouchMove() {
