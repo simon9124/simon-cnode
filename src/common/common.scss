@@ -1,5 +1,7 @@
+// 无效，小程序不支持*选择器
 * {
   box-sizing: content-box;
+  // box-sizing: border-box;
   transition: width 2s;
   -moz-transition: width 2s;
   -webkit-transition: width 2s;
@@ -20,6 +22,10 @@ page {
 
 .bold {
   font-weight: bold;
+}
+
+.center {
+  text-align: center;
 }
 
 .justify {

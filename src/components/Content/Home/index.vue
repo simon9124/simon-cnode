@@ -33,11 +33,25 @@
               <span>{{article.visit_count}}</span>
             </div>
           </div>
-          <div class="cell-time absolute"
-               @click="timeClick">{{article.last_reply_time}}</div>
+          <div class="cell-time absolute">{{article.last_reply_time}}</div>
         </div>
 
         <!-- 分页 -->
+        <div class="page">
+          <span class="page-block center"
+                @click="page=1;getData()">{{'«'}}</span>
+          <span v-if="pageList[2]-2>1"
+                class="page-block center">...</span>
+          <span v-for="pageNum in pageList"
+                :key="pageNum"
+                class="page-block center"
+                :style="{color:pageNum===page?'#80bd01':'#778087'}"
+                @click="page=pageNum;getData()">{{pageNum}}</span>
+          <span v-if="pages[tab]- pageList[2]>2"
+                class="page-block center">...</span>
+          <span class="page-block center"
+                @click="page=pages[tab];getData()">{{'»'}}</span>
+        </div>
 
       </div>
 
@@ -55,23 +69,41 @@ import { getHomeContent } from '@/api/content/index.js';
 export default {
   data() {
     return {
-      // 页码
+      // 文章列表
+      articles: [],
+      // 页码列表
+      pageList: [1, 2, 3, 4, 5],
+      // 每个主题分别对应的页数（找不到官方api，暂在此处写成定值）
+      pages: {
+        all: 49,
+        good: 18,
+        share: 24,
+        ask: 25,
+        job: 9,
+        dev: 30
+      },
+      // 当前页码
       page: 1,
-      // 每一页的主题数量
-      limit: 20,
-      // 主题分类：all/ask/share/job/good/dev
-      tab: 'all',
-      articles: []
+      // 当前每一页的主题数量
+      limit: 40,
+      // 当前主题分类：all/ask/share/job/good/dev
+      tab: 'all'
     };
   },
   created() {
     this.getData();
   },
   methods: {
+    // 获取文章列表
     async getData() {
-      this.articles = (await getHomeContent('', '', '')).data;
+      this.articles = (await getHomeContent(
+        this.tab,
+        this.limit,
+        this.page
+      )).data;
       // 数据处理
       this.articles.map(article => {
+        // 格式化时间："x分钟前"/"x小时前"/"x天前"/"x月前"...
         this.$set(
           article,
           'last_reply_time',
@@ -83,9 +115,20 @@ export default {
       wx.navigateTo({
         url: '/pages/article/main?id=5cbfd9aca86ae80ce64b3175'
       });
-    },
-    timeClick() {
-      console.log('1');
+    }
+  },
+  watch: {
+    // 监听页码变化 -> 分页组件更新
+    page(val) {
+      if (val <= 3) {
+        this.pageList = [1, 2, 3, 4, 5];
+      } else if (val === this.pages[this.tab]) {
+        this.pageList = [val - 2, val - 1, val];
+      } else if (val === this.pages[this.tab] - 1) {
+        this.pageList = [val - 2, val - 1, val, val + 1];
+      } else {
+        this.pageList = [val - 2, val - 1, val, val + 1, val + 2];
+      }
     }
   }
 };
@@ -96,6 +139,7 @@ export default {
 .container-content-common /deep/ {
   .container-content-common-content {
     padding: 0;
+    border-top: none;
   }
 }
 </style>
