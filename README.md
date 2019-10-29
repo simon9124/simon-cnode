@@ -14,13 +14,15 @@
 **用到的组件库：**
 
 > * [mpvue-weui](https://github.com/MPComponent/mpvue-weui) - 基于 mpvue 的 weui 框架
-> * [iview-weapp](https://github.com/TalkingData/iview-weapp) - 一套高质量的微信小程序 UI 组件库
+> * [iview-weapp](https://github.com/TalkingData/iview-weapp) - 一套高质量的微信小程序 UI 组件库（无法引入）
 
 **踩坑：**
 
 > * 小程序无序列表小圆点无效：list-style-type: disc !important;
-> * 在 mpvue 中使用 iview weapp 或 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input($event)事件监听输入内容的变化）
-> * 在 mpvue 中使用 iview weapp 等第三方组件库的方法：
+> * 小程序不支持转义字符，需在 html 结构里使用{{}}表达式，如：{{'<'}}；
+> * 小程序不支持多种 css 选择器：~、+、\*等
+> * 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
+> * 在 mpvue 中使用 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input($event)事件监听输入内容的变化）
 > * swiper 组件禁止手动滑动的方法：
 
 ```bash
