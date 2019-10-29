@@ -18,6 +18,9 @@ export default {
       // 'i-col': '../../../static/iview/col/index',
       // 'i-input': '../../../static/iview/input/index',
       // 'i-tag': '../../../static/iview/tag/index'
+      // 'i-button': '../../../static/iview/button/index',
+      'i-button': '/static/iview/button/index',
+      'i-page': '/static/iview/page/index'
     }
   }
 };
