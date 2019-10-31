@@ -6,10 +6,17 @@
       <!-- header -->
       <div class='container-content-common-header'>
         <div class='breadcrumb'>
-          <span href='/'
-                class="breadcrumb-dashboard">主页</span>
-          <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
-          <span>关于</span>
+          <scroll-view scroll-x
+                       class="tabs">
+            <span class="breadcrumb-tab"
+                  v-for="tabItem in tabList"
+                  @click="tab=tabItem.type;getData()"
+                  :style="{color:tabItem.type===tab?'#fff':'#80bd01',
+                         backgroundColor:tabItem.type===tab?'#80bd01':'transparent',
+                         }">
+              {{tabItem.title}}
+            </span>
+          </scroll-view>
         </div>
       </div>
 
@@ -61,6 +68,8 @@
 </template>
 
 <script>
+// data
+import { tabList } from '@/common/data';
 // function
 import { getTimeFromNow } from '@/utils/filters';
 // api
@@ -71,6 +80,8 @@ export default {
     return {
       // 文章列表
       articles: [],
+      // 主题列表
+      tabList: tabList,
       // 页码列表
       pageList: [1, 2, 3, 4, 5],
       // 每个主题分别对应的页数（找不到官方api，暂在此处写成定值）
@@ -96,6 +107,9 @@ export default {
   methods: {
     // 获取文章列表
     async getData() {
+      wx.showLoading({
+        title: '加载中'
+      });
       this.articles = (await getHomeContent(
         this.tab,
         this.limit,
@@ -110,6 +124,7 @@ export default {
           getTimeFromNow(article.last_reply_at)
         );
       });
+      wx.hideLoading();
     },
     go() {
       wx.navigateTo({
@@ -137,6 +152,12 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "~@/common/content.scss";
 .container-content-common /deep/ {
+  .tabs {
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+    border: none !important;
+  }
   .container-content-common-content {
     padding: 0;
     border-top: none;
