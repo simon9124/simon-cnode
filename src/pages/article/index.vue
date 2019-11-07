@@ -1,46 +1,68 @@
 <template>
-  <div class="container-content-common">
+  <div class="container">
 
-    <scroll-view scroll-y>
+    <!-- header -->
+    <header-container></header-container>
 
-      <!-- header -->
-      <div class='container-content-common-header'>
-        <div class='breadcrumb'>
-          <span href='/'
-                class="breadcrumb-dashboard">主页</span>
-          <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
-          <span>关于</span>
+    <!-- content -->
+    <div class="container-content-common">
+
+      <scroll-view scroll-y>
+
+        <!-- content -->
+        <div class='container-content-common-content'
+             v-if="article">
+
+          <!-- 标题 -->
+          <div>
+            <div class="cell-tag"
+                 :style="{ background: article.top || article.good ? '#80bd01':'#e5e5e5',
+                         color: article.top || article.good ? '#fff':'#999' }">
+              {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}
+            </div>
+            <div class="article-title line-block">{{article.title}}</div>
+          </div>
+          <div>
+            <div class="cell-time">发布于{{article.last_reply_time}}</div>
+            <div class="cell-time">作者{{article.author.loginname}}</div>
+            <div class="cell-time">{{article.visit_count}}次浏览</div>
+            <div class="cell-time">来自{{article.tab}}</div>
+          </div>
+
+          <hr>
+
+          <!-- 内容 -->
+          <wxParse :content="article.content">
+          </wxParse>
+
+          <!-- 回复 -->
+
         </div>
-      </div>
 
-      <!-- content -->
-      <div class='container-content-common-content'>
+      </scroll-view>
 
-        <wxParse v-if="article"
-                 :content="article.content">
-        </wxParse>
-
-      </div>
-
-    </scroll-view>
+    </div>
 
   </div>
 </template>
 
 <script>
+// components
+import HeaderContainer from '@/components/Header';
+// plugin
 import wxParse from 'mpvue-wxparse';
 // api
 import { getArticle } from '@/api/article/index.js';
 
 export default {
-  components: { wxParse },
+  components: { HeaderContainer, wxParse },
   data() {
     return {
       article: null
     };
   },
   created() {
-    // this.getData();
+    this.getData();
   },
   methods: {
     async getData() {
@@ -52,4 +74,13 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "~@/common/content.scss";
+@import "~@/common/article.scss";
+.container /deep/ {
+  .container-content-common-content {
+    padding: 0 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+  }
+}
 </style>

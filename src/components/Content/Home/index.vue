@@ -10,6 +10,7 @@
                        class="tabs">
             <span class="breadcrumb-tab"
                   v-for="tabItem in tabList"
+                  :key="tabItem.type"
                   @click="tab=tabItem.type;getData()"
                   :style="{color:tabItem.type===tab?'#fff':'#80bd01',
                          backgroundColor:tabItem.type===tab?'#80bd01':'transparent',
@@ -25,7 +26,7 @@
 
         <!-- 文章列表 -->
         <div class="cell relative"
-             v-for="article in articles"
+             v-for="(article,i) in articles"
              :key="article.id">
           <img :src="article.author.avatar_url">
           <div class="cell-tag"
@@ -33,7 +34,8 @@
                          color: article.top || article.good ? '#fff':'#999' }">
             {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}
           </div>
-          <div class="cell-title">{{article.title}}
+          <div class="cell-title"
+               @click="goToArticle(i)">{{article.title}}
             <div class="cell-reply absolute">
               <span>{{article.reply_count}}</span>
               <span> / </span>
@@ -126,7 +128,8 @@ export default {
       });
       wx.hideLoading();
     },
-    go() {
+    // 页面跳转 - article
+    goToArticle(i) {
       wx.navigateTo({
         url: '/pages/article/main?id=5cbfd9aca86ae80ce64b3175'
       });

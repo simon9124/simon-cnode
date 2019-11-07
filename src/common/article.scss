@@ -1,0 +1,13 @@
+.container-content-common /deep/ {
+  .container-content-common-content {
+    .article {
+      &-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 8px 0;
+        vertical-align: bottom;
+        color: #333;
+      }
+    }
+  }
+}
