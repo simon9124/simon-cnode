@@ -22,11 +22,11 @@
             </div>
             <div class="article-title line-block">{{article.title}}</div>
           </div>
-          <div>
-            <div class="cell-time">发布于{{article.last_reply_time}}</div>
-            <div class="cell-time">作者{{article.author.loginname}}</div>
-            <div class="cell-time">{{article.visit_count}}次浏览</div>
-            <div class="cell-time">来自{{article.tab}}</div>
+          <div class="cell">
+            <div class="cell-time">&bull;&nbsp;发布于{{article.last_reply_time}}</div>
+            <div class="cell-time">&bull;&nbsp;作者{{article.author.loginname}}</div>
+            <div class="cell-time">&bull;&nbsp;{{article.visit_count}}次浏览</div>
+            <div class="cell-time">&bull;&nbsp;来自{{article.tab}}</div>
           </div>
 
           <hr>
