@@ -23,20 +23,39 @@
             <div class="article-title line-block">{{article.title}}</div>
           </div>
           <div class="cell">
-            <div class="cell-time">&bull;&nbsp;发布于{{article.last_reply_time}}</div>
-            <div class="cell-time">&bull;&nbsp;作者{{article.author.loginname}}</div>
-            <div class="cell-time">&bull;&nbsp;{{article.visit_count}}次浏览</div>
-            <div class="cell-time">&bull;&nbsp;来自{{article.tab}}</div>
+            <div class="cell-time">&bull;&nbsp;发布于&nbsp;{{article.create_at_time}}</div>
+            <div class="cell-time">&bull;&nbsp;作者 {{article.author.loginname}}</div>
+            <div class="cell-time">&bull;&nbsp;{{article.visit_count}} 次浏览</div>
+            <div class="cell-time">&bull;&nbsp;来自 {{article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}</div>
           </div>
 
           <hr>
 
           <!-- 内容 -->
-          <wxParse :content="article.content">
-          </wxParse>
+          <!-- <wxParse :content="article.content">
+          </wxParse> -->
 
-          <!-- 回复 -->
+        </div>
 
+        <!-- 回复 -->
+        <div class="reply"
+             v-if="article">
+          <div class="reply-count">
+            {{article.reply_count}}&nbsp;回复
+          </div>
+          <div v-for="(reply,i) in article.replies"
+               :key="i"
+               class="reply-block">
+
+            <img class="inline-block"
+                 :src="reply.author.avatar_url">
+            <span class="reply-block-author bold inline-block">{{reply.author.loginname}}</span>
+            <span class="reply-block-time inline-block ">{{i+1}}楼&bull;{{reply.create_at_time}}</span>
+
+            <wxParse :content="reply.content">
+            </wxParse>
+
+          </div>
         </div>
 
       </scroll-view>
@@ -51,6 +70,8 @@
 import HeaderContainer from '@/components/Header';
 // plugin
 import wxParse from 'mpvue-wxparse';
+// function
+import { getTimeFromNow } from '@/utils/filters';
 // api
 import { getArticle } from '@/api/article/index.js';
 
@@ -67,6 +88,10 @@ export default {
   methods: {
     async getData() {
       this.article = (await getArticle('5cbfd9aca86ae80ce64b3175')).data;
+      this.article.create_at_time = getTimeFromNow(this.article.create_at);
+      this.article.replies.forEach(reply => {
+        this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
+      });
     }
   }
 };
