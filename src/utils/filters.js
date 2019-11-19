@@ -17,7 +17,7 @@ export function getTimeFromNow(str) {
   } else if ((time / 86400000) < 31) {
     return parseInt(time / 86400000) + '天前';
   } else if ((time / 2592000000) < 12) {
-    return parseInt(time / 2592000000) + '月前';
+    return parseInt(time / 2592000000) + '个月前';
   } else {
     return parseInt(time / 31536000000) + '年前';
   }
