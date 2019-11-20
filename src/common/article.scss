@@ -43,12 +43,12 @@
 
     &-block {
       padding: 10px;
-      background: #fff;
+      // background: #fff;
       border: 1px solid #f0f0f0;
       border-bottom: none;
       font-size: 14px;
 
-      img {
+      &-avator {
         width: 30px;
         height: 30px;
         border-radius: 3px;
@@ -65,6 +65,31 @@
         font-size: 12px;
         color: #08c;
       }
+
+      &-tag {
+        color: #fff;
+        background-color: #6ba44e;
+        padding: 2px;
+        font-size: 12px;
+        margin-left: 5px;
+      }
+
+      &-good {
+        float: right;
+        font-size: 15px;
+
+        img {
+          width: 15px !important;
+          height: 15px !important;
+          margin-right: 5px;
+          vertical-align: baseline;
+        }
+
+        &-num {
+          color: gray;
+        }
+      }
+
 
       .wxParse .p {
         margin-top: 3px;

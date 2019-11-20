@@ -32,8 +32,8 @@
           <hr>
 
           <!-- 内容 -->
-          <!-- <wxParse :content="article.content">
-          </wxParse> -->
+          <wxParse :content="article.content">
+          </wxParse>
 
         </div>
 
@@ -45,12 +45,19 @@
           </div>
           <div v-for="(reply,i) in article.replies"
                :key="i"
-               class="reply-block">
+               class="reply-block"
+               :style="{'background':reply.ups.length<3?'#fff':'#f4fcf0'}">
 
-            <img class="inline-block"
+            <img class="reply-block-avator inline-block"
                  :src="reply.author.avatar_url">
             <span class="reply-block-author bold inline-block">{{reply.author.loginname}}</span>
             <span class="reply-block-time inline-block ">{{i+1}}楼&bull;{{reply.create_at_time}}</span>
+            <span v-if="article.author.loginname===reply.author.loginname"
+                  class="reply-block-tag inline-block ">作者</span>
+            <span class="reply-block-good">
+              <img src="../../../static/images/good.png">
+              <span class="reply-block-good-num">{{reply.ups.length}}</span>
+            </span>
 
             <wxParse :content="reply.content">
             </wxParse>
