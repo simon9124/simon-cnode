@@ -54,7 +54,8 @@
             <span class="reply-block-time inline-block ">{{i+1}}楼&bull;{{reply.create_at_time}}</span>
             <span v-if="article.author.loginname===reply.author.loginname"
                   class="reply-block-tag inline-block ">作者</span>
-            <span class="reply-block-good">
+            <span class="reply-block-good"
+                  v-if="reply.ups.length>0">
               <img src="../../../static/images/good.png">
               <span class="reply-block-good-num">{{reply.ups.length}}</span>
             </span>
