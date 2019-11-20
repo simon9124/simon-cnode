@@ -86,7 +86,7 @@ export default {
       tabList: tabList,
       // 页码列表
       pageList: [1, 2, 3, 4, 5],
-      // 每个主题分别对应的页数（找不到官方api，暂在此处写成定值）
+      // 每个主题分别对应的页数（找不到官方api，暂在此处写成固定值）
       pages: {
         all: 49,
         good: 18,
