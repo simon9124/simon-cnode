@@ -14,13 +14,15 @@
              v-if="article">
 
           <!-- 标题 -->
-          <div>
-            <div class="cell-tag"
+          <div class="article-title">
+            <div v-if="article.top"
+                 class="cell-tag"
                  :style="{ background: article.top || article.good ? '#80bd01':'#e5e5e5',
                          color: article.top || article.good ? '#fff':'#999' }">
               {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}
             </div>
-            <div class="article-title line-block">{{article.title}}</div>
+            {{article.title}}
+            <!-- <div class="article-title line-block">{{article.title}}</div> -->
           </div>
           <div class="cell">
             <div class="cell-time">&bull;&nbsp;发布于&nbsp;{{article.create_at_time}}</div>
@@ -90,16 +92,24 @@ export default {
       article: null
     };
   },
-  created() {
-    // this.getData();
+  onLoad() {
+    this.getData();
+  },
+  onUnload() {
+    this.article = null;
   },
   methods: {
     async getData() {
-      this.article = (await getArticle('5cbfd9aca86ae80ce64b3175')).data;
+      wx.showLoading({
+        title: '加载中'
+      });
+      const { id } = this.$root.$mp.query;
+      this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       this.article.replies.forEach(reply => {
         this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
       });
+      wx.hideLoading();
     }
   }
 };

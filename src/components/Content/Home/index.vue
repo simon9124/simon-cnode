@@ -11,7 +11,7 @@
             <span class="breadcrumb-tab"
                   v-for="tabItem in tabList"
                   :key="tabItem.type"
-                  @click="tab=tabItem.type;getData()"
+                  @click="tab=tabItem.type;page=1;getData()"
                   :style="{color:tabItem.type===tab?'#fff':'#80bd01',
                          backgroundColor:tabItem.type===tab?'#80bd01':'transparent',
                          }">
@@ -22,7 +22,8 @@
       </div>
 
       <!-- content -->
-      <div class='container-content-common-content'>
+      <div class='container-content-common-content'
+           v-if="articles">
 
         <!-- 文章列表 -->
         <div class="cell relative"
@@ -81,7 +82,7 @@ export default {
   data() {
     return {
       // 文章列表
-      articles: [],
+      articles: null,
       // 主题列表
       tabList: tabList,
       // 页码列表
@@ -131,7 +132,7 @@ export default {
     // 页面跳转 - article
     goToArticle(i) {
       wx.navigateTo({
-        url: '/pages/article/main?id=5cbfd9aca86ae80ce64b3175'
+        url: `/pages/article/main?id=${this.articles[i].id}`
       });
     }
   },
