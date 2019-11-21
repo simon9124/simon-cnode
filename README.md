@@ -23,7 +23,7 @@
 > - 小程序不支持多种 css 选择器：~、+、\*等
 > - 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
 > - 在 mpvue 中使用 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input(\$event)事件监听输入内容的变化）
-> - mpvue 的生命周期：vue 的 created 会先于小程序 onLoad 函数调用，小程序第一页出现前就已经创建出了所有页面对应的 Vue 实例。如果把接口请求放到 created 生命周期，会造成接口提早调用，产生不必要的 bug，因此页面加载的方法需要放在 onLoad 周期中。[mpvue 生命周期](http://mpvue.com/mpvue/#实例生命周期)
+> - mpvue 的生命周期：vue 的 created 会先于小程序 onLoad 函数调用，小程序第一页出现前就已经创建出了所有页面对应的 Vue 实例。如果把接口请求放到 created 生命周期，会造成接口提早调用，产生不必要的 bug，因此页面加载的方法需要放在 onLoad 周期中。详见[mpvue 生命周期](http://mpvue.com/mpvue/#实例生命周期)
 > - swiper 组件禁止手动滑动的方法：
 
 ```bash
