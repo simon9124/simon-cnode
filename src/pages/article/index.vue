@@ -81,9 +81,9 @@ import HeaderContainer from '@/components/Header';
 // plugin
 import wxParse from 'mpvue-wxparse';
 // function
-import { getTimeFromNow } from '@/utils/filters';
+// import { getTimeFromNow } from '@/utils/filters';
 // api
-import { getArticle } from '@/api/article/index.js';
+// import { getArticle } from '@/api/article/index.js';
 
 export default {
   components: { HeaderContainer, wxParse },
@@ -103,13 +103,21 @@ export default {
       wx.showLoading({
         title: '加载中'
       });
+      // this.article = null;
       const { id } = this.$root.$mp.query;
-      this.article = (await getArticle(id)).data;
-      this.article.create_at_time = getTimeFromNow(this.article.create_at);
-      this.article.replies.forEach(reply => {
-        this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
-      });
-      wx.hideLoading();
+      console.log(id);
+
+      setTimeout(() => {
+        wx.hideLoading();
+      }, 2000);
+
+      // this.article = (await getArticle(id)).data;
+      // this.article.create_at_time = getTimeFromNow(this.article.create_at);
+      // this.article.replies.map(reply => {
+      //   this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
+      // });
+      // console.log(this.article);
+      // wx.hideLoading();
     }
   }
 };

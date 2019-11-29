@@ -104,7 +104,7 @@ export default {
       tab: 'all'
     };
   },
-  created() {
+  onLoad() {
     this.getData();
   },
   methods: {

@@ -3,10 +3,15 @@ import App from './App';
 
 // css
 import '@/common/common.scss';
-import 'mpvue-wxparse/src/wxParse.css';
 
 // mpvue-weui
 import 'mpvue-weui/src/style/weui.css';
+
+// mpvue-wxparse
+import 'mpvue-wxparse/src/wxParse.css';
+
+// 查看console里会打印每500ms更新的数据量
+Vue.config._mpTrace = true;
 
 Vue.config.productionTip = false;
 App.mpType = 'app';
