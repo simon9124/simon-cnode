@@ -84,6 +84,7 @@ import wxParse from 'mpvue-wxparse';
 // import { getTimeFromNow } from '@/utils/filters';
 // api
 // import { getArticle } from '@/api/article/index.js';
+import fly from '@/utils/fly';
 
 export default {
   components: { HeaderContainer, wxParse },
@@ -111,7 +112,12 @@ export default {
         wx.hideLoading();
       }, 2000);
 
+      let res = await fly.get(`topic/${id}`);
+      console.log(res);
+
       // this.article = (await getArticle(id)).data;
+      // console.log(this.article);
+
       // this.article.create_at_time = getTimeFromNow(this.article.create_at);
       // this.article.replies.map(reply => {
       //   this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
