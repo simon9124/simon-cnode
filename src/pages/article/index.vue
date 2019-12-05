@@ -1,78 +1,113 @@
 <template>
   <div class="container">
-
     <!-- header -->
     <!-- <header-container></header-container> -->
 
     <!-- content -->
     <div class="container-content-common">
-
       <scroll-view scroll-y>
-
         <!-- content -->
-        <div class='container-content-common-content'
-             v-if="article">
-
+        <div class="container-content-common-content" v-if="article">
           <!-- 标题 -->
           <div class="article-title">
-            <div v-if="article.top"
-                 class="cell-tag"
-                 :style="{ background: article.top || article.good ? '#80bd01':'#e5e5e5',
-                         color: article.top || article.good ? '#fff':'#999' }">
-              {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}
+            <div
+              v-if="article.top"
+              class="cell-tag"
+              :style="{
+                background: article.top || article.good ? '#80bd01' : '#e5e5e5',
+                color: article.top || article.good ? '#fff' : '#999'
+              }"
+            >
+              {{
+                article.top
+                  ? "置顶"
+                  : article.good
+                  ? "精华"
+                  : article.tab === "share"
+                  ? "分享"
+                  : article.tab === "ask"
+                  ? "问答"
+                  : article.tab === "job"
+                  ? "招聘"
+                  : ""
+              }}
             </div>
-            {{article.title}}
+            {{ article.title }}
             <!-- <div class="article-title line-block">{{article.title}}</div> -->
           </div>
           <div class="cell">
-            <div class="cell-time">&bull;&nbsp;发布于&nbsp;{{article.create_at_time}}</div>
-            <div class="cell-time">&bull;&nbsp;作者 {{article.author.loginname}}</div>
-            <div class="cell-time">&bull;&nbsp;{{article.visit_count}} 次浏览</div>
-            <div class="cell-time">&bull;&nbsp;来自 {{article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}</div>
+            <div class="cell-time">
+              &bull;&nbsp;发布于&nbsp;{{ article.create_at_time }}
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;作者 {{ article.author.loginname }}
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;{{ article.visit_count }} 次浏览
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;来自
+              {{
+                article.tab === "share"
+                  ? "分享"
+                  : article.tab === "ask"
+                  ? "问答"
+                  : article.tab === "job"
+                  ? "招聘"
+                  : ""
+              }}
+            </div>
           </div>
 
-          <hr>
+          <hr />
 
           <!-- 内容 -->
-          <wxParse :content="article.content">
-          </wxParse>
-
+          <wxParse :content="article.content"> </wxParse>
         </div>
 
         <!-- 回复 -->
-        <div class="reply"
-             v-if="article">
-          <div class="reply-count">
-            {{article.reply_count}}&nbsp;回复
-          </div>
-          <!-- <div v-for="(reply,i) in article.replies" -->
-          <div v-for="(reply,i) in 2"
-               :key="i"
-               class="reply-block"
-               :style="{'background':reply.ups.length<3?'#fff':'#f4fcf0'}">
+        <div class="reply" v-if="article">
+          <div class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
 
-            <img class="reply-block-avator inline-block"
-                 :src="reply.author.avatar_url">
-            <span class="reply-block-author bold inline-block">{{reply.author.loginname}}</span>
-            <span class="reply-block-time inline-block ">{{i+1}}楼&bull;{{reply.create_at_time}}</span>
-            <span v-if="article.author.loginname===reply.author.loginname"
-                  class="reply-block-tag inline-block ">作者</span>
-            <span class="reply-block-good"
-                  v-if="reply.ups.length>0">
-              <img src="../../../static/images/good.png">
-              <span class="reply-block-good-num">{{reply.ups.length}}</span>
+          <div
+            v-for="(reply, i) in article.replies"
+            :key="i"
+            class="reply-block"
+            :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }"
+          >
+            <img
+              class="reply-block-avator inline-block"
+              :src="reply.author.avatar_url"
+            />
+            <span class="reply-block-author bold inline-block">{{
+              reply.author.loginname
+            }}</span>
+            <span class="reply-block-time inline-block "
+              >{{ i + 1 }}楼&bull;{{ reply.create_at_time }}</span
+            >
+            <span
+              v-if="article.author.loginname === reply.author.loginname"
+              class="reply-block-tag inline-block "
+              >作者</span
+            >
+            <span class="reply-block-good" v-if="reply.ups.length > 0">
+              <img src="../../../static/images/good.png" />
+              <span class="reply-block-good-num">{{ reply.ups.length }}</span>
             </span>
 
-            <!-- <rich-text> -->
-            <wxParse :content="reply.content"></wxParse>
+            <!-- <pre>
+            <div class="topic-pre">
+              <code style="white-space: pre-wrap;"
+                    v-html="reply.content"></code>
+            </div>
+            </pre> -->
 
+            <rich-text :nodes="reply.content"></rich-text>
+            <!-- <wxParse :content="reply.content"></wxParse> -->
           </div>
         </div>
-
       </scroll-view>
-
     </div>
-
   </div>
 </template>
 
@@ -85,6 +120,7 @@ import wxParse from 'mpvue-wxparse';
 import { getTimeFromNow } from '@/utils/filters';
 // api
 import { getArticle } from '@/api/article/index.js';
+import '@/common/rich.css';
 
 export default {
   components: { HeaderContainer, wxParse },
@@ -110,6 +146,22 @@ export default {
       this.article.replies.map(reply => {
         this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
       });
+
+      // var replies = this.article.replies;
+
+      // var htmlAry = [];
+      // for (let i = 0; i < replies.length; i++) {
+      //   if (replies[i].type === 'text') {
+      //     // 重点，就是这里。只要这么干就能直接获取到转化后的node格式数据；
+      //     htmlAry[i] = wxParse.html2json(replies[i].content, 'returnData');
+      //     console.log(htmlAry[i]);
+      //   }
+      // }
+      // this.setData({
+      //   templist: replies,
+      //   htmlAry: htmlAry // 记得这里要加入
+      // });
+
       setTimeout(() => {
         wx.hideLoading();
       }, 200);
