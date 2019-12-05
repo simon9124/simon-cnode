@@ -35,6 +35,8 @@ catchTouchMove() {
 }
 ```
 
+> - wxParse 小程序富文本：css 文件需引入 import 'mpvue-wxparse/src/wxParse.css';
+
 **下载启动步骤：**
 
 ```bash

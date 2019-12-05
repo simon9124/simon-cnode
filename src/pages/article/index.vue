@@ -2,7 +2,7 @@
   <div class="container">
 
     <!-- header -->
-    <header-container></header-container>
+    <!-- <header-container></header-container> -->
 
     <!-- content -->
     <div class="container-content-common">
@@ -45,7 +45,8 @@
           <div class="reply-count">
             {{article.reply_count}}&nbsp;回复
           </div>
-          <div v-for="(reply,i) in article.replies"
+          <!-- <div v-for="(reply,i) in article.replies" -->
+          <div v-for="(reply,i) in 2"
                :key="i"
                class="reply-block"
                :style="{'background':reply.ups.length<3?'#fff':'#f4fcf0'}">
@@ -62,8 +63,8 @@
               <span class="reply-block-good-num">{{reply.ups.length}}</span>
             </span>
 
-            <wxParse :content="reply.content">
-            </wxParse>
+            <!-- <rich-text> -->
+            <wxParse :content="reply.content"></wxParse>
 
           </div>
         </div>
@@ -81,10 +82,9 @@ import HeaderContainer from '@/components/Header';
 // plugin
 import wxParse from 'mpvue-wxparse';
 // function
-// import { getTimeFromNow } from '@/utils/filters';
+import { getTimeFromNow } from '@/utils/filters';
 // api
-// import { getArticle } from '@/api/article/index.js';
-import fly from '@/utils/fly';
+import { getArticle } from '@/api/article/index.js';
 
 export default {
   components: { HeaderContainer, wxParse },
@@ -104,26 +104,15 @@ export default {
       wx.showLoading({
         title: '加载中'
       });
-      // this.article = null;
       const { id } = this.$root.$mp.query;
-      console.log(id);
-
+      this.article = (await getArticle(id)).data;
+      this.article.create_at_time = getTimeFromNow(this.article.create_at);
+      this.article.replies.map(reply => {
+        this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
+      });
       setTimeout(() => {
         wx.hideLoading();
-      }, 2000);
-
-      let res = await fly.get(`topic/${id}`);
-      console.log(res);
-
-      // this.article = (await getArticle(id)).data;
-      // console.log(this.article);
-
-      // this.article.create_at_time = getTimeFromNow(this.article.create_at);
-      // this.article.replies.map(reply => {
-      //   this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
-      // });
-      // console.log(this.article);
-      // wx.hideLoading();
+      }, 200);
     }
   }
 };
