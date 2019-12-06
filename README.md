@@ -36,7 +36,7 @@ catchTouchMove() {
 ```
 
 > - mpvue-wxParse 小程序富文本：0.6 版本以后，需引入 css 文件 import 'mpvue-wxparse/src/wxParse.css';
-> - mpvue-wxParse 小程序富文本：在 v-for 循环使用时，如果循环次数较多会造成卡顿——解决办法：使用 rich-text 原生组件
+> - mpvue-wxParse 小程序富文本：在 v-for 循环使用时，如果循环次数较多会造成卡顿（解决办法：使用 rich-text 原生组件）
 
 **下载启动步骤：**
 
