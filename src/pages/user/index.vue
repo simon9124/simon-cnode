@@ -121,7 +121,7 @@ export default {
     };
   },
   onLoad() {
-    this.getData();
+    // this.getData();
   },
   onUnload() {
     this.article = null;
