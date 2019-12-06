@@ -60,7 +60,7 @@
         width: 30px;
         height: 30px;
         border-radius: 3px;
-        margin-right: 10px;
+        margin: 0 10px 5px 0;
         vertical-align: top;
       }
 
@@ -98,6 +98,14 @@
         }
       }
 
+      ._rich-text {
+        width: 100%;
+        font-family: "Helvetica Neue";
+        line-height: 1.7em;
+        color: #333;
+        word-break: break-all;
+        white-space: pre-wrap;
+      }
 
       .wxParse .p {
         margin-top: 3px;
