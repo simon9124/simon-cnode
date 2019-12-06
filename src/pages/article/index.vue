@@ -139,8 +139,7 @@ export default {
         // 手动给回复的内容（rich-text富文本）加上样式
         // let result = reply;
         // const regex = new RegExp('<a', 'gi');
-        // result = result.replace(regex, `<a style="color: #08c;" `);
-        // reply = result;
+        // reply = result.replace(regex, `<a style="color: #08c;" `);
       });
 
       // var replies = this.article.replies;

@@ -26,7 +26,7 @@
 	"projectname": "simon-cnode",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"libVersion": "2.9.3",
+	"libVersion": "2.9.4",
 	"condition": {
 		"search": {
 			"current": -1,

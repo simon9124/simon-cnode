@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './index';
 
 // add this to handle exception
-Vue.config.errorHandler = function (err) {
+Vue.config.errorHandler = function(err) {
   if (console && console.error) {
     console.error(err);
   }
@@ -10,17 +10,3 @@ Vue.config.errorHandler = function (err) {
 
 const app = new Vue(App);
 app.$mount();
-
-export default {
-  config: {
-    usingComponents: {
-      // 'i-row': '../../../static/iview/row/index',
-      // 'i-col': '../../../static/iview/col/index',
-      // 'i-input': '../../../static/iview/input/index',
-      // 'i-tag': '../../../static/iview/tag/index'
-      // 'i-button': '../../../static/iview/button/index',
-      'i-button': '/static/iview/button/index',
-      'i-page': '/static/iview/page/index'
-    }
-  }
-};
