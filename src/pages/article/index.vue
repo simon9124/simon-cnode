@@ -7,17 +7,14 @@
     <div class="container-content-common">
       <scroll-view scroll-y>
         <!-- content -->
-        <div class="container-content-common-content" v-if="article">
+        <div class="container-content-common-content"
+             v-if="article">
           <!-- 标题 -->
           <div class="article-title">
-            <div
-              v-if="article.top"
-              class="cell-tag"
-              :style="{
-                background: article.top || article.good ? '#80bd01' : '#e5e5e5',
-                color: article.top || article.good ? '#fff' : '#999'
-              }"
-            >
+            <div v-if="article.top"
+                 class="cell-tag"
+                 :style="{background: article.top || article.good ? '#80bd01' : '#e5e5e5',
+                          color: article.top || article.good ? '#fff' : '#999'}">
               {{
                 article.top
                   ? "置顶"
@@ -66,31 +63,24 @@
         </div>
 
         <!-- 回复 -->
-        <div class="reply" v-if="article">
+        <div class="reply"
+             v-if="article">
           <div class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
 
-          <div
-            v-for="(reply, i) in article.replies"
-            :key="i"
-            class="reply-block"
-            :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }"
-          >
-            <img
-              class="reply-block-avator inline-block"
-              :src="reply.author.avatar_url"
-            />
+          <div v-for="(reply, i) in article.replies"
+               :key="i"
+               class="reply-block"
+               :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }">
+            <img class="reply-block-avator inline-block"
+                 :src="reply.author.avatar_url" />
             <span class="reply-block-author bold inline-block">{{
               reply.author.loginname
             }}</span>
-            <span class="reply-block-time inline-block "
-              >{{ i + 1 }}楼&bull;{{ reply.create_at_time }}</span
-            >
-            <span
-              v-if="article.author.loginname === reply.author.loginname"
-              class="reply-block-tag inline-block "
-              >作者</span
-            >
-            <span class="reply-block-good" v-if="reply.ups.length > 0">
+            <span class="reply-block-time inline-block ">{{ i + 1 }}楼&bull;{{ reply.create_at_time }}</span>
+            <span v-if="article.author.loginname === reply.author.loginname"
+                  class="reply-block-tag inline-block ">作者</span>
+            <span class="reply-block-good"
+                  v-if="reply.ups.length > 0">
               <img src="../../../static/images/good.png" />
               <span class="reply-block-good-num">{{ reply.ups.length }}</span>
             </span>
@@ -103,7 +93,9 @@
             </pre> -->
 
             <rich-text :nodes="reply.content"></rich-text>
+            <!-- 循环wxParse时，若数据量较大会直接造成页面卡死，wxParse的问题暂无解，用rich-text代替 -->
             <!-- <wxParse :content="reply.content"></wxParse> -->
+
           </div>
         </div>
       </scroll-view>
@@ -120,7 +112,6 @@ import wxParse from 'mpvue-wxparse';
 import { getTimeFromNow } from '@/utils/filters';
 // api
 import { getArticle } from '@/api/article/index.js';
-import '@/common/rich.css';
 
 export default {
   components: { HeaderContainer, wxParse },
@@ -145,6 +136,11 @@ export default {
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       this.article.replies.map(reply => {
         this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
+        // 手动给回复的内容（rich-text富文本）加上样式
+        // let result = reply;
+        // const regex = new RegExp('<a', 'gi');
+        // result = result.replace(regex, `<a style="color: #08c;" `);
+        // reply = result;
       });
 
       // var replies = this.article.replies;
