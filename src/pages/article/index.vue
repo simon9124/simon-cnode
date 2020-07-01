@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- header -->
-    <header-container></header-container>
+    <!-- <header-container></header-container> -->
 
     <!-- content -->
     <div class="container-content-common">
@@ -65,7 +65,8 @@
         <!-- 回复 -->
         <div class="reply"
              v-if="article">
-          <div class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
+          <div v-if="article.reply_count!==0"
+               class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
 
           <div v-for="(reply, i) in article.replies"
                :key="i"
@@ -131,14 +132,17 @@ export default {
       wx.showLoading({
         title: "加载中"
       });
-      const { id } = this.$root.$mp.query;
+      const id = "5ef86c7713f8b244e57cbd8a";
+      // const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
         // 手动给回复的内容（rich-text富文本）加上样式
-        // let result = reply;
-        // const regex = new RegExp('<a', 'gi');
+        let result = reply.content;
+        const regex = new RegExp("<a", "gi");
+        this.$set(reply, "content", result.replace(regex, "<a style=\"color: #08c;\" "));
+
         // reply = result.replace(regex, `<a style="color: #08c;" `);
       });
 

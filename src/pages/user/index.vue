@@ -121,7 +121,7 @@ export default {
     };
   },
   onLoad () {
-    // this.getData();
+    this.getData();
   },
   onUnload () {
     this.article = null;
@@ -131,8 +131,11 @@ export default {
       wx.showLoading({
         title: "加载中"
       });
-      const { id } = this.$root.$mp.query;
+      // const { id } = this.$root.$mp.query;
+      const id = "5efb4c5d13f8b244e57cc632";
       this.article = (await getArticle(id)).data;
+      console.log(this.article);
+
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
