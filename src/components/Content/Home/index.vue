@@ -72,14 +72,14 @@
 
 <script>
 // data
-import { tabList } from '@/common/data';
+import { tabList } from "@/common/data";
 // function
-import { getTimeFromNow } from '@/utils/filters';
+import { getTimeFromNow } from "@/utils/filters";
 // api
-import { getHomeContent } from '@/api/content/index.js';
+import { getHomeContent } from "@/api/content/index.js";
 
 export default {
-  data() {
+  data () {
     return {
       // 文章列表
       articles: null,
@@ -101,17 +101,17 @@ export default {
       // 当前每一页的主题数量
       limit: 40,
       // 当前主题分类：all/ask/share/job/good/dev
-      tab: 'all'
+      tab: "all"
     };
   },
-  onLoad() {
+  onLoad () {
     this.getData();
   },
   methods: {
     // 获取文章列表
-    async getData() {
+    async getData () {
       wx.showLoading({
-        title: '加载中'
+        title: "加载中"
       });
       this.articles = (await getHomeContent(
         this.tab,
@@ -123,14 +123,14 @@ export default {
         // 格式化时间："x分钟前"/"x小时前"/"x天前"/"x月前"...
         this.$set(
           article,
-          'last_reply_time',
+          "last_reply_time",
           getTimeFromNow(article.last_reply_at)
         );
       });
       wx.hideLoading();
     },
     // 页面跳转 - article
-    goToArticle(i) {
+    goToArticle (i) {
       wx.navigateTo({
         url: `/pages/article/main?id=${this.articles[i].id}`
       });
@@ -138,7 +138,7 @@ export default {
   },
   watch: {
     // 监听页码变化 -> 分页组件更新
-    page(val) {
+    page (val) {
       if (val <= 3) {
         this.pageList = [1, 2, 3, 4, 5];
       } else if (val === this.pages[this.tab]) {
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 .container-content-common /deep/ {
   .tabs {
     width: 100%;

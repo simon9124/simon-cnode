@@ -240,7 +240,7 @@
 
 <script>
 // api
-import { getContentApi } from '@/api/content/index.js';
+import { getContentApi } from "@/api/content/index.js";
 
 export default {
   data () {
@@ -260,5 +260,5 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 </style>

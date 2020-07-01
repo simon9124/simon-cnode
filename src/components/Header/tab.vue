@@ -16,11 +16,11 @@
 
 <script>
 // function
-import Bus from '@/utils/bus';
-import { navList } from '@/common/data.js';
+import Bus from "@/utils/bus";
+import { navList } from "@/common/data.js";
 
 export default {
-  data() {
+  data () {
     return {
       // 标签list
       navList: navList
@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     // 切换标签 -> 传递给兄弟组件
-    swichNav(index) {
-      Bus.$emit('tabChange', index);
+    swichNav (index) {
+      Bus.$emit("tabChange", index);
       // 登录页面切换回 "isLogin" 状态
-      Bus.$emit('isLogin', true);
+      Bus.$emit("isLogin", true);
     }
   }
 };

@@ -7,15 +7,15 @@
 
 <script>
 // components
-import HeaderContainer from '@/components/Header';
-import ContentContainer from '@/components/Content';
+import HeaderContainer from "@/components/Header";
+import ContentContainer from "@/components/Content";
 
 export default {
   components: {
     HeaderContainer,
     ContentContainer
   },
-  data() {
+  data () {
     return {};
   },
   methods: {}

@@ -1,8 +1,8 @@
-var Fly = require('flyio/dist/npm/wx');
+var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
 
 // 配置请求基地址
-fly.config.baseURL = 'http://rap2api.taobao.org/app/mock/232650/';
+fly.config.baseURL = "http://rap2api.taobao.org/app/mock/232650/";
 
 // //添加请求拦截器
 // fly.interceptors.request.use((config, promise) => {

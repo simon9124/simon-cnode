@@ -94,19 +94,19 @@
 // api
 // import { getContentApi } from '@/api/content/index.js';
 // mockData
-import { APIData } from './mockContent';
+import { APIData } from "./mockContent";
 
 export default {
-  data() {
+  data () {
     return {
       content: APIData
     };
   },
-  created() {
+  created () {
     this.getData();
   },
   methods: {
-    async getData() {
+    async getData () {
       // await getContentApi();
       // console.log((await getContentApi()).data);
       // this.content = (await getContentApi()).data;
@@ -117,5 +117,5 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 </style>

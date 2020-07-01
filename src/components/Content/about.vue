@@ -46,19 +46,19 @@
 // api
 // import { getContentApi } from '@/api/content/index.js';
 // mockData
-import { AboutData } from './mockContent';
+import { AboutData } from "./mockContent";
 
 export default {
-  data() {
+  data () {
     return {
       content: AboutData
     };
   },
-  created() {
+  created () {
     this.getData();
   },
   methods: {
-    async getData() {
+    async getData () {
       // await getContentApi();
       // console.log((await getContentApi()).data);
       // this.content = (await getContentApi()).data;
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 .container-content-common /deep/ {
   .container-content-common-content {
     .title-main {

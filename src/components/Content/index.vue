@@ -35,14 +35,14 @@
 
 <script>
 // function
-import Bus from '@/utils/bus';
+import Bus from "@/utils/bus";
 // components
-import HomePage from '@/components/Content/Home';
-import NewPage from '@/components/Content/new';
-import ApiPage from '@/components/Content/api';
-import AboutPage from '@/components/Content/about';
-import RegisterPage from '@/components/Content/register';
-import LoginPage from '@/components/Content/login';
+import HomePage from "@/components/Content/Home";
+import NewPage from "@/components/Content/new";
+import ApiPage from "@/components/Content/api";
+import AboutPage from "@/components/Content/about";
+import RegisterPage from "@/components/Content/register";
+import LoginPage from "@/components/Content/login";
 
 export default {
   components: {
@@ -53,21 +53,21 @@ export default {
     RegisterPage,
     LoginPage
   },
-  data() {
+  data () {
     return {
       // 当前所在滑块 index
       currentTab: 0,
       startX: 0
     };
   },
-  created() {
+  created () {
     // 接收兄弟组件事件 - 标签切换
-    Bus.$on('tabChange', index => {
+    Bus.$on("tabChange", index => {
       this.currentTab = index;
     });
   },
   methods: {
-    swiperTab(e) {
+    swiperTab (e) {
       console.log(e);
     }
   }
@@ -75,5 +75,5 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 </style>

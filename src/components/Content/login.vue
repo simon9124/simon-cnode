@@ -112,99 +112,99 @@
 
 <script>
 // function
-import Bus from '@/utils/bus';
-import { validateEmail } from '@/utils/validate';
+import Bus from "@/utils/bus";
+import { validateEmail } from "@/utils/validate";
 // components
-import mpButton from 'mpvue-weui/src/button';
-import mpInput from 'mpvue-weui/src/input';
-import mpToast from 'mpvue-weui/src/toast';
+import mpButton from "mpvue-weui/src/button";
+import mpInput from "mpvue-weui/src/input";
+import mpToast from "mpvue-weui/src/toast";
 
 export default {
   components: { mpButton, mpInput, mpToast },
-  data() {
+  data () {
     return {
       // 页面属性：登录 or 找回密码
       isLogin: true,
       // 登录表单
       formData: {
-        username: '',
-        password: '',
-        email: ''
+        username: "",
+        password: "",
+        email: ""
       },
       // 密码显示与否
       passwordShow: false,
       // toast相关
       toast: {
         show: false,
-        type: 'error',
-        content: ''
+        type: "error",
+        content: ""
       }
     };
   },
-  created() {
+  created () {
     // 接收兄弟组件事件 - 标签切换后，切换回 "isLogin" 状态
-    Bus.$on('isLogin', status => {
+    Bus.$on("isLogin", status => {
       this.isLogin = status;
     });
   },
   methods: {
     // 监听输入框变化
-    inputRef(event, type) {
+    inputRef (event, type) {
       // console.log(event.mp.detail.value);
       switch (type) {
-        case 'username':
+        case "username":
           this.formData.username = event.mp.detail.value;
           break;
-        case 'password':
+        case "password":
           this.formData.password = event.mp.detail.value;
           break;
-        case 'email':
+        case "email":
           this.formData.email = event.mp.detail.value;
           break;
       }
     },
     // 切换密码显示与否
-    passwordToggle() {
+    passwordToggle () {
       this.passwordShow = !this.passwordShow;
     },
     // 登录按钮
-    handleLogin() {
-      if (this.formData.username === '' || this.formData.password === '') {
+    handleLogin () {
+      if (this.formData.username === "" || this.formData.password === "") {
         // 如果用户名或密码未填写
         this.toast = {
           show: true,
-          type: 'error',
-          content: '用户名或密码未填写'
+          type: "error",
+          content: "用户名或密码未填写"
         };
       } else {
         // 已填写用户名和密码
         this.toast = {
           show: true,
-          type: 'success',
+          type: "success",
           content:
-            '用户名：' +
+            "用户名：" +
             this.formData.username +
-            '，' +
-            '密码：' +
+            "，" +
+            "密码：" +
             this.formData.password
         };
       }
       console.log(this.formData);
     },
     // 提交邮箱
-    handleSubmitEmail() {
-      if (this.formData.email === '' || !validateEmail(this.formData.email)) {
+    handleSubmitEmail () {
+      if (this.formData.email === "" || !validateEmail(this.formData.email)) {
         // 如果未填写邮箱或填写错误
         this.toast = {
           show: true,
-          type: 'error',
-          content: '邮箱填写错误'
+          type: "error",
+          content: "邮箱填写错误"
         };
       } else {
         // 已正确填写邮箱
         this.toast = {
           show: true,
-          type: 'success',
+          type: "success",
           content: this.formData.email
         };
       }
@@ -214,7 +214,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 .container-content-common /deep/ {
   .container-content-common-content {
     .title-main {

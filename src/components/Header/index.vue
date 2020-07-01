@@ -20,7 +20,7 @@
 
 <script>
 // components
-import Tab from '@/components/Header/tab';
+import Tab from "@/components/Header/tab";
 
 export default {
   components: {
@@ -29,12 +29,12 @@ export default {
   data () {
     return {
       // 搜索框
-      searchValue: ''
+      searchValue: ""
     };
   },
   methods: {
     // 输入框获取焦点
-    searchFocus () {},
+    searchFocus () { },
     // 点击搜索
     search (e) {
       // console.log(e.target.value);
@@ -62,7 +62,7 @@ export default {
       font-size: 13px;
       width: 233px;
       height: 26px;
-      background: url("http://static2.cnodejs.org/public/images/search.e53b380a.hashed.png")
+      background: url('http://static2.cnodejs.org/public/images/search.e53b380a.hashed.png')
         4px 4px no-repeat #888;
       padding-left: 25px;
       border-radius: 15px;

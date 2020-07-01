@@ -105,37 +105,37 @@
 
 <script>
 // components
-import HeaderContainer from '@/components/Header';
+import HeaderContainer from "@/components/Header";
 // plugin
-import wxParse from 'mpvue-wxparse';
+import wxParse from "mpvue-wxparse";
 // function
-import { getTimeFromNow } from '@/utils/filters';
+import { getTimeFromNow } from "@/utils/filters";
 // api
-import { getArticle } from '@/api/article/index.js';
+import { getArticle } from "@/api/article/index.js";
 
 export default {
   components: { HeaderContainer, wxParse },
-  data() {
+  data () {
     return {
       article: null
     };
   },
-  onLoad() {
+  onLoad () {
     this.getData();
   },
-  onUnload() {
+  onUnload () {
     this.article = null;
   },
   methods: {
-    async getData() {
+    async getData () {
       wx.showLoading({
-        title: '加载中'
+        title: "加载中"
       });
       const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       this.article.replies.map(reply => {
-        this.$set(reply, 'create_at_time', getTimeFromNow(reply.create_at));
+        this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
         // 手动给回复的内容（rich-text富文本）加上样式
         // let result = reply;
         // const regex = new RegExp('<a', 'gi');
@@ -166,8 +166,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
-@import "~@/common/article.scss";
+@import '~@/common/content.scss';
+@import '~@/common/article.scss';
 .container /deep/ {
   .container-content-common {
     height: calc(100vh - 130px);

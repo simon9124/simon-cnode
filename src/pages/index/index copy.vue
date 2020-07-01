@@ -54,14 +54,14 @@
 </template>
 
 <script>
-import card from '@/components/card';
+import card from "@/components/card";
 
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
+      motto: "Hello miniprograme",
       userInfo: {
-        nickName: 'mpvue'
+        nickName: "mpvue"
         // avatarUrl: 'https://mpvue.com/assets/logo.png'
       }
     };
@@ -73,15 +73,15 @@ export default {
 
   methods: {
     bindViewTap () {
-      const url = '../logs/main';
-      if (mpvuePlatform === 'wx') {
+      const url = "../logs/main";
+      if (mpvuePlatform === "wx") {
         mpvue.switchTab({ url });
       } else {
         mpvue.navigateTo({ url });
       }
     },
     clickHandle (ev) {
-      console.log('clickHandle:', ev);
+      console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     }
   },
@@ -127,7 +127,7 @@ export default {
 }
 .all:after {
   display: block;
-  content: "";
+  content: '';
   clear: both;
 }
 .left {

@@ -5,7 +5,7 @@
 /* eslint-disable*/
 
 export function isvalidUsername(str) {
-  const valid_map = ['admin', 'editor'];
+  const valid_map = ["admin", "editor"];
   return valid_map.indexOf(str.trim()) >= 0;
 }
 
@@ -79,10 +79,10 @@ export function levenshteinDistance(user, pwd) {
     str3: null,
     matrix: null,
     isString(s) {
-      return Object.prototype.toString.call(s) === '[object String]';
+      return Object.prototype.toString.call(s) === "[object String]";
     },
     isNumber(s) {
-      return Object.prototype.toString.call(s) === '[object Number]';
+      return Object.prototype.toString.call(s) === "[object Number]";
     },
     init(str1, str2) {
       if (!this.isString(str1) || !this.isString(str2)) return;
@@ -99,8 +99,7 @@ export function levenshteinDistance(user, pwd) {
     },
     get() {
       return (
-        1 -
-        this.getDistance() / Math.max(this.str1.length, this.str2.length)
+        1 - this.getDistance() / Math.max(this.str1.length, this.str2.length)
       );
     },
     // 计算编辑距离
@@ -110,8 +109,8 @@ export function levenshteinDistance(user, pwd) {
 
       if (!len1 || !len2) return Math.max(len1, len2);
 
-      var str1 = this.str1.split('');
-      var str2 = this.str2.split('');
+      var str1 = this.str1.split("");
+      var str2 = this.str2.split("");
 
       var i = 0;
       var j = 0;
@@ -153,7 +152,7 @@ export function levenshteinDistance(user, pwd) {
       this.matrix = new Array(n);
       var i = 0;
       while (i < n) this.matrix[i++] = new Array(m);
-    }
+    },
   };
   return LevenshteinDistance.init(pwd, user).get() > 0.5;
 }
@@ -175,10 +174,10 @@ export function keyboardSortPassword(pwd) {
   pwd = pwd.toLocaleLowerCase();
   var i = 0;
   var arr = [
-    '1234567890',
-    'qwertyuiop[]',
-    '|asdfghjklzxcvbnm',
-    '~!@#$%^&*()_+'
+    "1234567890",
+    "qwertyuiop[]",
+    "|asdfghjklzxcvbnm",
+    "~!@#$%^&*()_+",
   ];
   for (i = 0; i < arr.length; i++) {
     if (arr[i].indexOf(pwd) !== -1) {
@@ -198,5 +197,5 @@ export function isExternal(path) {
 
 // 检测是否为演练展示
 export function isExhibit(path) {
-  return path.indexOf('/exhibit') > -1;
+  return path.indexOf("/exhibit") > -1;
 }
