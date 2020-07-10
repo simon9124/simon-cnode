@@ -24,6 +24,7 @@
 > - 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
 > - 在 mpvue 中使用 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input(\$event)事件监听输入内容的变化）
 > - mpvue 的生命周期：vue 的 created 会先于小程序 onLoad 函数调用，小程序第一页出现前就已经创建出了所有页面对应的 Vue 实例。如果把接口请求放到 created 生命周期，会造成接口提早调用，产生不必要的 bug。因此，页面加载的方法需要放在 onLoad 周期中。同理，每次用小程序原生的 wx.navigateBack 方法回到上一个页面时，并没有销毁内存中的数据，需要主动在 onUnload 时销毁（而非 vue 中的 beforeDestroy），或者在 onload 时重置数据，否则重新加载时，Vue 实例还保存着上一次加载页面时的数据。详见[mpvue 生命周期](http://mpvue.com/mpvue/#实例生命周期)
+> - 根据单词换行：word-break: break-word;
 > - swiper 组件禁止手动滑动的方法：
 
 ```bash
@@ -36,7 +37,25 @@ catchTouchMove() {
 ```
 
 > - mpvue-wxParse 小程序富文本：0.6 版本以后，需引入 css 文件 import 'mpvue-wxparse/src/wxParse.css';
-> - mpvue-wxParse 小程序富文本：在 v-for 循环使用时，如果循环次数较多会造成卡顿（解决办法：使用 rich-text 原生组件）
+> - mpvue-wxParse 小程序富文本：在 v-for 循环使用时，如果循环次数较多会造成卡死（解决办法：使用 rich-text 原生组件）
+> - mpvue-wxParse 小程序富文本：解析 img 时，插件已给出解决小程序图片高度问题，用办法如下：
+
+```bash
+<wxParse :content="article.content" :imageProp="{mode:'widthFix'}"></wxParse>
+```
+
+> - 解析小程序富文本时，wxParse 会默认将换行符清空，手动设置为<br>标签又包含高度，因此用一个看不见的<hr>代替：
+
+```js
+this.$set(
+  this.article,
+  "content",
+  this.article.content.replace(
+    new RegExp("\n", "gi"),
+    '<hr style="height:0;visibility:hidden;">'
+  )
+);
+```
 
 **下载启动步骤：**
 
