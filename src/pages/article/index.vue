@@ -59,7 +59,8 @@
           <hr />
 
           <!-- 内容 -->
-          <wxParse :content="article.content"> </wxParse>
+          <wxParse :content="article.content"
+                   :imageProp="{mode:'widthFix'}"></wxParse>
         </div>
 
         <!-- 回复 -->
@@ -74,10 +75,12 @@
                :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }">
             <img class="reply-block-avator inline-block"
                  :src="reply.author.avatar_url" />
-            <span class="reply-block-author bold inline-block">{{
-              reply.author.loginname
-            }}</span>
-            <span class="reply-block-time inline-block ">{{ i + 1 }}楼&bull;{{ reply.create_at_time }}</span>
+            <span class="reply-block-author bold inline-block">
+              {{ reply.author.loginname }}
+            </span>
+            <span class="reply-block-time inline-block ">
+              {{ i + 1 }}楼&bull;{{ reply.create_at_time }}
+            </span>
             <span v-if="article.author.loginname === reply.author.loginname"
                   class="reply-block-tag inline-block ">作者</span>
             <span class="reply-block-good"
@@ -94,6 +97,7 @@
             </pre> -->
 
             <rich-text :nodes="reply.content"></rich-text>
+
             <!-- 循环wxParse时，若数据量较大会直接造成页面卡死，wxParse的问题暂无解，用rich-text代替 -->
             <!-- <wxParse :content="reply.content"></wxParse> -->
 
@@ -129,38 +133,34 @@ export default {
   },
   methods: {
     async getData () {
-      wx.showLoading({
-        title: "加载中"
-      });
-      const id = "5ef86c7713f8b244e57cbd8a";
-      // const { id } = this.$root.$mp.query;
+      wx.showLoading({ title: "加载中" });
+      // const id = "5ef94e9c472c7975b04b7ef3";
+      const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
+        "<hr style=\"height:0;visibility:hidden;\">"));
+      // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
-        // 手动给回复的内容（rich-text富文本）加上样式
+        /* 手动给回复的内容（rich-text富文本）加上样式 */
         let result = reply.content;
-        const regex = new RegExp("<a", "gi");
-        this.$set(reply, "content", result.replace(regex, "<a style=\"color: #08c;\" "));
-
-        // reply = result.replace(regex, `<a style="color: #08c;" `);
+        const regexA = result.replace(new RegExp("<a", "gi"), "<a style=\"color: #08c;\" ");
+        const regexH1 = regexA.replace(new RegExp("<h1", "gi"),
+          "<h1 style=\"font-family:\'Helvetica Neue\';font-size:2.2em;word-break:break-word;line-height:1.2em;border-bottom:1px solid #eee;\" ");
+        const regexP = regexH1.replace(new RegExp("<p", "gi"),
+          "<p style=\"margin-bottom:10px;\" ");
+        const regexOl = regexP.replace(new RegExp("<ol", "gi"),
+          "<ol style=\"margin: 1em 0;padding-left: 16px;\" ");
+        const regexLi = regexOl.replace(new RegExp("<li", "gi"),
+          "<li style=\"word-break:break-word;font-size: 14px;line-height:1.8em;\" ");
+        const regexImg = regexLi.replace(new RegExp("<img", "gi"),
+          "<img style=\"width:100%\" ");
+        const regexBreak = regexImg.replace(new RegExp("\n", "gi"),
+          "<hr style=\"height:0;visibility:hidden;\">");
+        // console.log(regexBreak);
+        this.$set(reply, "content", regexBreak);
       });
-
-      // var replies = this.article.replies;
-
-      // var htmlAry = [];
-      // for (let i = 0; i < replies.length; i++) {
-      //   if (replies[i].type === 'text') {
-      //     // 重点，就是这里。只要这么干就能直接获取到转化后的node格式数据；
-      //     htmlAry[i] = wxParse.html2json(replies[i].content, 'returnData');
-      //     console.log(htmlAry[i]);
-      //   }
-      // }
-      // this.setData({
-      //   templist: replies,
-      //   htmlAry: htmlAry // 记得这里要加入
-      // });
-
       setTimeout(() => {
         wx.hideLoading();
       }, 200);

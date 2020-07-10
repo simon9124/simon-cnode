@@ -33,10 +33,6 @@
         }
       }
     }
-
-    .wxParse view {
-      word-break: break-all;
-    }
   }
 
   .reply {
@@ -106,15 +102,6 @@
         word-break: break-all;
         white-space: pre-wrap;
       }
-
-      .wxParse .p {
-        margin-top: 3px;
-      }
-
-      .wxParse view {
-        word-break: break-all;
-      }
     }
   }
-
 }
