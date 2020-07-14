@@ -91,8 +91,6 @@
 </template>
 
 <script>
-// api
-// import { getContentApi } from '@/api/content/index.js';
 // mockData
 import { APIData } from "./mockContent";
 
@@ -102,17 +100,7 @@ export default {
       content: APIData
     };
   },
-  created () {
-    this.getData();
-  },
-  methods: {
-    async getData () {
-      // await getContentApi();
-      // console.log((await getContentApi()).data);
-      // this.content = (await getContentApi()).data;
-      // console.log(this.content);
-    }
-  }
+  methods: {}
 };
 </script>
 
