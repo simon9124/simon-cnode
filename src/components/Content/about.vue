@@ -28,9 +28,6 @@
           <div v-for="(topic,_index) in item.topic"
                :key="_index">
             <div class="txt txt-content">
-              <rich-text class="article"
-                         :nodes="topic"
-                         @tap="navigate"></rich-text>
               <p v-html="topic"></p>
             </div>
           </div>
