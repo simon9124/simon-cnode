@@ -31,9 +31,7 @@
               <rich-text class="article"
                          :nodes="topic"
                          @tap="navigate"></rich-text>
-              <p v-html="topic"
-                 class="article"
-                 @tap="navigate"></p>
+              <p v-html="topic"></p>
             </div>
           </div>
 
