@@ -28,8 +28,12 @@
           <div v-for="(topic,_index) in item.topic"
                :key="_index">
             <div class="txt txt-content">
+              <rich-text class="article"
+                         :nodes="topic"
+                         @tap="navigate"></rich-text>
               <p v-html="topic"
-                 class="article"></p>
+                 class="article"
+                 @tap="navigate"></p>
             </div>
           </div>
 
@@ -43,28 +47,17 @@
 </template>
 
 <script>
-// api
-// import { getContentApi } from '@/api/content/index.js';
 // mockData
 import { AboutData } from "./mockContent";
 
 export default {
   data () {
     return {
-      content: AboutData
+      content: AboutData,
+      propsContent: null
     };
   },
-  created () {
-    this.getData();
-  },
-  methods: {
-    async getData () {
-      // await getContentApi();
-      // console.log((await getContentApi()).data);
-      // this.content = (await getContentApi()).data;
-      // console.log(this.content);
-    }
-  }
+  methods: {}
 };
 </script>
 
