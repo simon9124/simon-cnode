@@ -44,8 +44,8 @@ catchTouchMove() {
 **mpvue-wxParse 小程序富文本**
 
 - 0.6 版本以后，需引入 css 文件 import 'mpvue-wxparse/src/wxParse.css';
-- 在 v-for 循环使用时，如果循环次数较多会造成卡死（解决办法：使用 rich-text 原生组件）
-- 解析 img 时，插件已给出解决小程序图片高度问题，用办法如下：
+- 在 v-for 循环使用时，循环次数较多会造成页面卡死，使用 rich-text 原生组件代替，但不支持`<a>`标签
+- 解析 img 时，插件已给出解决小程序图片高度问题，解决办法：
 
 ```bash
   <wxParse :content="article.content" :imageProp="{mode:'widthFix'}"></wxParse>
@@ -61,6 +61,16 @@ this.$set(
     new RegExp("\n", "gi"),
     '<hr style="height:0;visibility:hidden;">'
   )
+);
+```
+
+- 部分转义字符（`/`，`）在 wxParse 的 <pre> 标签内不解析，需手动转义：
+
+```js
+this.$set(
+  this.article,
+  "content",
+  this.article.content.replace(new RegExp("&#x2F;", "gi"), "/")
 );
 ```
 
@@ -94,6 +104,8 @@ export default {
 };
 </script>
 ```
+
+- 代码高亮问题，参见https://blogai.cn/posts/29，代码段的换行符会失效，暂无解决办法
 
 ## 安装使用
 

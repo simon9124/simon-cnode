@@ -60,7 +60,8 @@
 
           <!-- 内容 -->
           <wxParse :content="article.content"
-                   :imageProp="{mode:'widthFix'}"></wxParse>
+                   :imageProp="{mode:'widthFix'}"
+                   @navigate="navigate"></wxParse>
         </div>
 
         <!-- 回复 -->
@@ -89,17 +90,13 @@
               <span class="reply-block-good-num">{{ reply.ups.length }}</span>
             </span>
 
-            <!-- <pre>
-            <div class="topic-pre">
-              <code style="white-space: pre-wrap;"
-                    v-html="reply.content"></code>
-            </div>
-            </pre> -->
-
-            <rich-text :nodes="reply.content"></rich-text>
-
             <!-- 循环wxParse时，若数据量较大会直接造成页面卡死，wxParse的问题暂无解，用rich-text代替 -->
-            <!-- <wxParse :content="reply.content"></wxParse> -->
+            <!-- <wxParse :content="reply.content"
+                     :imageProp="{mode:'widthFix'}"
+                     @navigate="navigate"></wxParse> -->
+
+            <!-- 使用原生组件循环富文本 -->
+            <rich-text :nodes="reply.content"></rich-text>
 
           </div>
         </div>
@@ -132,15 +129,32 @@ export default {
     this.article = null;
   },
   methods: {
+    // 数据渲染
     async getData () {
       wx.showLoading({ title: "加载中" });
-      // const id = "5ef94e9c472c7975b04b7ef3";
-      const { id } = this.$root.$mp.query;
+      const id = "5f0d3937c927455111491185";
+      // const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
-      this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
-        "<hr style=\"height:0;visibility:hidden;\">"));
       // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
+      // this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
+      //   "↵"));
+      // this.$set(this.article, "content", this.article.content.replace(new RegExp("↵", "gi"),
+      //   "<hr style=\"height:0;visibility:hidden;\"\>"));
+      // 部分转义字符在 wxParse 的 <pre> 标签内不解析，需手动转义
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("&#x2F;", "gi"),
+        "/"));
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("&#96;", "gi"),
+        "`"));
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("&#x27;", "gi"),
+        "'"));
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("&nbsp;", "gi"),
+        " "));
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("&amp;", "gi"),
+        "&"));
+      // 给<code>标签添加class，符合hightlight的标准（换行符失效，解决中）
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("<code", "gi"),
+        "<code class=\"language-javascript\" "));
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
         /* 手动给回复的内容（rich-text富文本）加上样式 */
@@ -164,6 +178,12 @@ export default {
       setTimeout(() => {
         wx.hideLoading();
       }, 200);
+    },
+    // wxParse跳转外链 - 需配置业务域名（个人账号暂不支持，取消域名校验可测试）
+    navigate (href, e) {
+      wx.navigateTo({
+        url: `/pages/out/main?href=${href}`,
+      });
     }
   }
 };
@@ -174,7 +194,7 @@ export default {
 @import '~@/common/article.scss';
 .container /deep/ {
   .container-content-common {
-    height: calc(100vh - 130px);
+    // height: calc(100vh - 130px);
     overflow: auto;
   }
   .container-content-common-content {

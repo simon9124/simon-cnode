@@ -103,7 +103,7 @@
 
 .wxParse .pre {
   overflow: auto;
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
   padding: 8px;
   white-space: pre;
   margin: 1em 0px;
@@ -111,7 +111,7 @@
 
 .wxParse .code {
   display: inline;
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
 }
 
 .wxParse .big {
@@ -262,3 +262,6 @@
   background: #f0f0f0;
   border-top: 1px solid #e0e0e0;
 }
+
+/* 引入代码高亮 */
+@import "./prism.wxss";

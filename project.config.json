@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"enhance": false,
 		"postcss": true,
@@ -26,7 +26,7 @@
 	"projectname": "simon-cnode",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"libVersion": "2.9.4",
+	"libVersion": "2.11.3",
 	"condition": {
 		"search": {
 			"current": -1,
