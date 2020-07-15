@@ -139,6 +139,8 @@ export default {
       // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
       // this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
       //   "↵"));
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("([^\r])\n", "gi"),
+        "<hr style=\"height:0;visibility:hidden;\"\>"));
       // this.$set(this.article, "content", this.article.content.replace(new RegExp("↵", "gi"),
       //   "<hr style=\"height:0;visibility:hidden;\"\>"));
       // 部分转义字符在 wxParse 的 <pre> 标签内不解析，需手动转义
