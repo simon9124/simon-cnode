@@ -6,7 +6,8 @@
     <!-- content -->
     <div class="container-content-common">
       <scroll-view scroll-y>
-        <!-- content -->
+
+        <!-- 内容 -->
         <div class="container-content-common-content"
              v-if="article">
           <!-- 标题 -->
@@ -37,7 +38,10 @@
               &bull;&nbsp;发布于&nbsp;{{ article.create_at_time }}
             </div>
             <div class="cell-time">
-              &bull;&nbsp;作者 {{ article.author.loginname }}
+              &bull;&nbsp;作者
+              <span @click="goToUser(article.author.loginname)">
+                {{ article.author.loginname }}
+              </span>
             </div>
             <div class="cell-time">
               &bull;&nbsp;{{ article.visit_count }} 次浏览
@@ -75,8 +79,10 @@
                class="reply-block"
                :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }">
             <img class="reply-block-avator inline-block"
-                 :src="reply.author.avatar_url" />
-            <span class="reply-block-author bold inline-block">
+                 :src="reply.author.avatar_url"
+                 @click="goToUser(reply.author.loginname)" />
+            <span class="reply-block-author bold inline-block"
+                  @click="goToUser(reply.author.loginname)">
               {{ reply.author.loginname }}
             </span>
             <span class="reply-block-time inline-block ">
@@ -100,6 +106,7 @@
 
           </div>
         </div>
+
       </scroll-view>
     </div>
   </div>
@@ -132,7 +139,7 @@ export default {
     // 数据渲染
     async getData () {
       wx.showLoading({ title: "加载中" });
-      // const id = "5f0d3937c927455111491185";
+      // const id = "5ef8528213f8b244e57cbcc3";
       const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
@@ -184,6 +191,12 @@ export default {
     navigate (href, e) {
       wx.navigateTo({
         url: `/pages/out/main?href=${href}`,
+      });
+    },
+    // 页面跳转 - user
+    goToUser (name) {
+      wx.navigateTo({
+        url: `/pages/user/main?name=${name}`
       });
     }
   }

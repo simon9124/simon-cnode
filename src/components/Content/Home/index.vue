@@ -29,7 +29,8 @@
         <div class="cell relative"
              v-for="(article,i) in articles"
              :key="article.id">
-          <img :src="article.author.avatar_url">
+          <img :src="article.author.avatar_url"
+               @click="goToUser(article.author.loginname)">
           <div class="cell-tag"
                :style="{ background: article.top || article.good ? '#80bd01':'#e5e5e5',
                          color: article.top || article.good ? '#fff':'#999' }">
@@ -133,6 +134,12 @@ export default {
     goToArticle (i) {
       wx.navigateTo({
         url: `/pages/article/main?id=${this.articles[i].id}`
+      });
+    },
+    // 页面跳转 - user
+    goToUser (name) {
+      wx.navigateTo({
+        url: `/pages/user/main?name=${name}`
       });
     }
   },
