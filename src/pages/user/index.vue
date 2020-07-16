@@ -16,12 +16,15 @@
           </div>
         </div>
 
-        <!-- content -->
-        <div class='container-content-common-content'
+        <!-- userInfo -->
+        <div class='container-content-common-content userInfo'
              v-if="userInfo">
-
-          <!-- 动态内容 -->
-          <!-- 123 -->
+          <img class="userInfo-avatar"
+               :src="userInfo.avatar_url"
+               :alt="userInfo.loginname">
+          <span class="userInfo-name">{{userInfo.loginname}} 积分</span>
+          <div>{{userInfo.score}}</div>
+          <div v-if="userInfo.githubUsername!==null">{{userInfo.githubUsername}}</div>
         </div>
 
         <!-- TA的创建 -->
@@ -61,22 +64,22 @@ import { getUser } from "@/api/user/index.js";
 
 export default {
   components: { HeaderContainer },
-  data () {
+  data() {
     return {
       userInfo: null
     };
   },
-  onLoad () {
+  onLoad() {
     this.getData();
   },
-  onUnload () {
+  onUnload() {
     this.userInfo = null;
   },
   methods: {
     // 数据渲染
-    async getData () {
+    async getData() {
       wx.showLoading({ title: "加载中" });
-      const name = "hyj1991";
+      const name = "i5ting";
       // const { name } = this.$root.$mp.query;
       this.userInfo = (await getUser(name)).data;
       console.log(this.userInfo);
@@ -85,7 +88,8 @@ export default {
       // 1.本页只获取前5篇文章
       this.userInfo.recent_topicsTop5 =
         this.userInfo.recent_topics.length > 5
-          ? this.userInfo.recent_topics.slice(0, 5) : this.userInfo.recent_topics;
+          ? this.userInfo.recent_topics.slice(0, 5)
+          : this.userInfo.recent_topics;
       // 2.格式化时间："x分钟前"/"x小时前"/"x天前"/"x月前"...
       this.userInfo.recent_topicsTop5.map(article => {
         this.$set(
@@ -100,24 +104,25 @@ export default {
       }, 200);
     },
     // 页面跳转 - article
-    goToArticle (i) {
+    goToArticle(i) {
       wx.navigateTo({
         url: `/pages/article/main?id=${this.userInfo.recent_topics[i].id}`
       });
-    },
+    }
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import '~@/common/content.scss';
-@import '~@/common/user.scss';
+@import "~@/common/content.scss";
+@import "~@/common/user.scss";
 .container {
-  padding: 10px;
+  padding: 10px 5px;
   .container-content-common {
     // height: calc(100vh - 130px);
     overflow: auto;
     border: 1px solid #e5e5e5;
+    border-radius: 5px;
   }
 }
 </style>
