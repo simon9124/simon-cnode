@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/article/main",
-    "pages/index/main",
     "pages/user/main",
+    "pages/index/main",
+    "pages/article/main",
     "pages/out/main"
   ],
   "window": {
