@@ -1,0 +1,91 @@
+.container-content-common /deep/ {
+
+  .reply {
+    background-color: #f6f6f6;
+
+    &-count {
+      padding: 10px;
+      color: #444;
+      line-height: 20px;
+    }
+
+    &-more {
+      padding: 10px;
+      color: #666;
+      line-height: 20px;
+      background: #fff;
+    }
+
+    .cell {
+      height: 50px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fff;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      // &:not(:last-child) {
+      //   border-bottom: 1px solid #f0f0f0;
+      // }
+
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 3px;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+
+      &-tag {
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 10px;
+      }
+
+      &-title {
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        vertical-align: middle;
+        max-width: 220px;
+        box-sizing: border-box;
+        height: 30px;
+        line-height: 30px;
+        font-size: 0.8em;
+        color: #333;
+        margin-left: 5px;
+      }
+
+      &-reply {
+        line-height: 2em;
+        font-size: 10px;
+        bottom: 0;
+
+        span:first-child {
+          color: #9e78c0;
+        }
+
+        span:nth-child(2) {
+          color: #333;
+        }
+      }
+
+      &-time {
+        width: 53px;
+        height: 28px;
+        line-height: 28px;
+        text-align: right;
+        bottom: 0;
+        right: 10px;
+        font-size: 0.7em;
+        color: #778087;
+      }
+    }
+  }
+}
