@@ -132,31 +132,30 @@ export default {
     // 数据渲染
     async getData () {
       wx.showLoading({ title: "加载中" });
-      const id = "5f0d3937c927455111491185";
-      // const { id } = this.$root.$mp.query;
+      // const id = "5f0d3937c927455111491185";
+      const { id } = this.$root.$mp.query;
       this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
       // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
-      // this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
-      //   "↵"));
-      this.$set(this.article, "content", this.article.content.replace(new RegExp("([^\r])\n", "gi"),
-        "<hr style=\"height:0;visibility:hidden;\"\>"));
-      // this.$set(this.article, "content", this.article.content.replace(new RegExp("↵", "gi"),
-      //   "<hr style=\"height:0;visibility:hidden;\"\>"));
-      // 部分转义字符在 wxParse 的 <pre> 标签内不解析，需手动转义
+      this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
+        "<hr style=\"height:0;visibility:hidden;\">"));
+
+      /* 代码段添加高亮：给<code>标签添加class（会导致<code>内的部分换行符失效和页面卡顿，暂不使用）*/
+      // this.$set(this.article, "content", this.article.content.replace(new RegExp("<code", "gi"),
+      //   "<code class=\"language-javascript\" "));
+
+      /* 部分转义字符在 wxParse 的 <pre> 标签内不解析，需手动转义（如开启高亮还将有部分不解析） */
       this.$set(this.article, "content", this.article.content.replace(new RegExp("&#x2F;", "gi"),
         "/"));
       this.$set(this.article, "content", this.article.content.replace(new RegExp("&#96;", "gi"),
         "`"));
       this.$set(this.article, "content", this.article.content.replace(new RegExp("&#x27;", "gi"),
         "'"));
-      this.$set(this.article, "content", this.article.content.replace(new RegExp("&nbsp;", "gi"),
-        " "));
-      this.$set(this.article, "content", this.article.content.replace(new RegExp("&amp;", "gi"),
-        "&"));
-      // 给<code>标签添加class，符合hightlight的标准（换行符失效，解决中）
-      this.$set(this.article, "content", this.article.content.replace(new RegExp("<code", "gi"),
-        "<code class=\"language-javascript\" "));
+      // this.$set(this.article, "content", this.article.content.replace(new RegExp("&nbsp;", "gi"),
+      //   " "));
+      // this.$set(this.article, "content", this.article.content.replace(new RegExp("&amp;", "gi"),
+      //   "&"));
+
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
         /* 手动给回复的内容（rich-text富文本）加上样式 */
