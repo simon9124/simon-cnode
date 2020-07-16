@@ -2,7 +2,7 @@
   .container-content-common-content {
     .article {
       &-title {
-        font-size: 22px;
+        font-size: 1.5em;
         font-weight: bold;
         margin-top: 8px;
         color: #333;
@@ -44,6 +44,7 @@
       padding: 0 10px 10px;
       color: #444;
       line-height: 20px;
+      font-size: 0.86em;
     }
 
     &-block {
@@ -64,6 +65,7 @@
       &-author {
         font-size: 12px;
         margin-right: 5px;
+        color: #666;
       }
 
       &-time {
