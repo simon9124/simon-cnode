@@ -122,27 +122,34 @@ import { getTimeFromNow } from "@/utils/filters";
 // api
 import { getArticle } from "@/api/article/index.js";
 
+const dataStack = [];
+
 export default {
   components: { HeaderContainer, wxParse },
   data () {
     return {
-      article: null
+      article: null,
+      id: ""
     };
   },
   onLoad () {
+    dataStack.push({ ...this.$data }); // 备份
     this.getData();
   },
   onUnload () {
-    this.article = null;
+    Object.assign(this.$data, dataStack.pop()); //恢复
   },
   methods: {
     // 数据渲染
     async getData () {
+      this.article = null;
       wx.showLoading({ title: "加载中" });
-      // const id = "5ef8528213f8b244e57cbcc3";
-      const { id } = this.$root.$mp.query;
-      this.article = (await getArticle(id)).data;
+      // this.id = "5ef8528213f8b244e57cbcc3";
+      this.id = this.$root.$mp.query.id;
+      this.article = (await getArticle(this.id)).data;
+      this.article = Object.assign(this.article, {});
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
+
       // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
       this.$set(this.article, "content", this.article.content.replace(new RegExp("\n", "gi"),
         "<hr style=\"height:0;visibility:hidden;\">"));
