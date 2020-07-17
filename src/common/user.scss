@@ -1,5 +1,7 @@
 .container-content-common /deep/ {
   .userInfo {
+    font-size: 14px;
+
     &-avatar {
       width: 40px;
       height: 40px;
@@ -10,7 +12,27 @@
 
     &-name {
       color: #778087;
-      font-size: 14px;
+    }
+
+    &-score {
+      line-height: 28px;
+    }
+
+    &-infos {
+      color: #778087;
+      line-height: 28px;
+
+      img {
+        width: 18px;
+        height: 18px;
+        margin: 0 5px;
+        vertical-align: sub;
+      }
+    }
+
+    &-register {
+      color: #ababab;
+      line-height: 3em;
     }
   }
 
