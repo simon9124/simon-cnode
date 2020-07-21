@@ -25,16 +25,24 @@
           <span class="userInfo-name">{{userInfo.loginname}}</span>
           <div class="userInfo-score">{{userInfo.score}} 积分</div>
 
+          <!-- userCollectInfo -->
+          <div v-if="userCollectInfo!==null && userCollectInfo.length!==0"
+               class="userInfo-collect">{{userCollectInfo.length}}个话题收藏</div>
+
           <!-- userGithubInfo -->
           <div class="userInfo-infos"
                v-if="userGithubInfo!==null">
             <img src="../../../static/images/home.png" />
-            <span @click="navigate(userGithubInfo.blog)">{{userGithubInfo.blog}}</span>
+            <span @click="navigate(userGithubInfo.blog)">
+              {{userGithubInfo.blog || userGithubInfo.html_url}}
+            </span>
           </div>
           <div class="userInfo-infos"
-               v-if="userGithubInfo!==null">
+               v-if="userGithubInfo!==null && userGithubInfo.location!==null">
             <img src="../../../static/images/location.png" />
-            <span>{{userGithubInfo.location}}</span>
+            <span>
+              {{userGithubInfo.location}}
+            </span>
           </div>
           <div class="userInfo-infos"
                v-if="userGithubInfo!==null">
@@ -48,12 +56,21 @@
 
         </div>
 
-        <!-- TA的创建 -->
-        <div class="reply"
-             v-if="userInfo">
-          <div class="reply-count">TA的创建</div>
+        <!-- 最近创建 & 最近参与 -->
+        <topic-template v-if="userInfo!==null"
+                        v-for="topic in userTopics"
+                        :key="topic.title"
+                        :title="topic.title"
+                        :type="topic.type"
+                        :topicList="userInfo[topic.listValue]"
+                        @goToArticle="goToArticle"
+                        @goToTopicList="goToTopicList"></topic-template>
 
-          <!-- 文章列表 -->
+        <!-- 最近创建的话题 -->
+        <!-- <div class="reply"
+             v-if="userInfo">
+          <div class="reply-count">最近创建的话题</div>
+
           <div class="cell relative"
                v-for="(article,i) in userInfo.recent_topicsTop5"
                :key="article.id">
@@ -67,7 +84,27 @@
 
           <div class="reply-more">查看更多»</div>
 
-        </div>
+        </div> -->
+
+        <!-- 最近参与的话题 -->
+        <!-- <div class="reply"
+             v-if="userInfo">
+          <div class="reply-count">最近参与的话题</div>
+
+          <div class="cell relative"
+               v-for="(article,i) in userInfo.recent_repliesTop5"
+               :key="article.id">
+            <img :src="article.author.avatar_url"
+                 @click="goToUser(article.author.loginname)">
+            <div class="cell-title"
+                 @click="goToArticle(i)">{{article.title}}
+            </div>
+            <div class="cell-time absolute">{{article.last_reply_time}}</div>
+          </div>
+
+          <div class="reply-more">查看更多»</div>
+
+        </div> -->
 
       </scroll-view>
 
@@ -77,21 +114,33 @@
 
 <script>
 // components
-import HeaderContainer from "@/components/Header";
+import TopicTemplate from "./topicTemplate";
 // function
 import { getTimeFromNow } from "@/utils/filters";
 // api
-import { getUser, getGithubPerson } from "@/api/user/index.js";
+import { getUser, getGithubPerson, getUserCollect } from "@/api/user/index.js";
 
 const dataStack = [];
 
 export default {
-  components: { HeaderContainer },
+  components: { TopicTemplate }, // 组件：用户 创建/参与 的话题列表
   data () {
     return {
-      userInfo: null,
-      userGithubInfo: null,
-      name: ""
+      userInfo: null, // 用户信息
+      userGithubInfo: null, // 用户github信息
+      userCollectInfo: null, // 用户收藏
+      userTopics: [
+        {
+          title: "最近创建的话题",
+          type: "recent_topics",
+          listValue: "recent_topicsTop5"
+        },
+        {
+          title: "最近参与的话题",
+          type: "recent_replies",
+          listValue: "recent_repliesTop5"
+        }
+      ] // 用户话题类型列表：最近创建 & 最近参与
     };
   },
   onLoad () {
@@ -106,25 +155,32 @@ export default {
     async getData () {
       this.userInfo = null;
       this.userGithubInfo = null;
+      this.userCollectInfo = null;
       wx.showLoading({ title: "加载中" });
-      // this.name = "i5ting";
-      this.name = this.$root.$mp.query.name;
-      this.userInfo = (await getUser(this.name)).data;
-      this.userInfo = Object.assign(this.userInfo, {});
+      const name = "hyj1991";
+      // const { name } = this.$root.$mp.query;
+      this.userInfo = (await getUser(name)).data;
+      this.userCollectInfo = (await getUserCollect(name)).data;
 
       // 用户注册了github -> 调用github接口
       this.userInfo.githubUsername !== undefined &&
-        getGithubPerson(this.name).then(result => {
+        getGithubPerson(this.userInfo.githubUsername).then(result => {
           this.userGithubInfo = result;
         });
 
       /* 数据处理 */
-      // 1.本页只获取前5篇文章
+      // 1.注册时间
+      this.$set(this.userInfo, "create_at_time", getTimeFromNow(this.userInfo.create_at));
+      // 2.本页只获取前5篇文章
       this.userInfo.recent_topicsTop5 =
         this.userInfo.recent_topics.length > 5
           ? this.userInfo.recent_topics.slice(0, 5)
           : this.userInfo.recent_topics;
-      // 2.格式化时间："x分钟前"/"x小时前"/"x天前"/"x月前"...
+      this.userInfo.recent_repliesTop5 =
+        this.userInfo.recent_replies.length > 5
+          ? this.userInfo.recent_replies.slice(0, 5)
+          : this.userInfo.recent_replies;
+      // 3.格式化时间："x分钟前"/"x小时前"/"x天前"/"x月前"...
       this.userInfo.recent_topicsTop5.map(article => {
         this.$set(
           article,
@@ -132,23 +188,35 @@ export default {
           getTimeFromNow(article.last_reply_at)
         );
       });
-      // 3.注册时间
-      this.$set(this.userInfo, "create_at_time", getTimeFromNow(this.userInfo.create_at));
+      this.userInfo.recent_repliesTop5.map(article => {
+        this.$set(
+          article,
+          "last_reply_time",
+          getTimeFromNow(article.last_reply_at)
+        );
+      });
 
       setTimeout(() => {
         wx.hideLoading();
       }, 200);
     },
-    // 页面跳转 - article
-    goToArticle (i) {
-      wx.navigateTo({
-        url: `/pages/article/main?id=${this.userInfo.recent_topics[i].id}`
-      });
-    },
     // 跳转外链 - 需配置业务域名（个人账号暂不支持，取消域名校验可测试）
-    navigate (href, e) {
+    navigate (href) {
       wx.navigateTo({
         url: `/pages/out/main?href=${href}`,
+      });
+    },
+    // 页面跳转 - article
+    goToArticle (obj) {
+      wx.navigateTo({
+        // url: `/pages/article/main?id=${this.userInfo.recent_topics[i].id}`
+        url: `/pages/article/main?id=${this.userInfo[obj.type][obj.i].id}`
+      });
+    },
+    goToTopicList (type) {
+      console.log(this.userInfo[type]);
+      wx.navigateTo({
+        url: "/pages/user/topic/main?list=${}"
       });
     },
   }

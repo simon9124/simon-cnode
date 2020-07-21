@@ -129,7 +129,6 @@ export default {
   data () {
     return {
       article: null,
-      id: ""
     };
   },
   onLoad () {
@@ -144,10 +143,9 @@ export default {
     async getData () {
       this.article = null;
       wx.showLoading({ title: "加载中" });
-      // this.id = "5ef8528213f8b244e57cbcc3";
-      this.id = this.$root.$mp.query.id;
-      this.article = (await getArticle(this.id)).data;
-      this.article = Object.assign(this.article, {});
+      // const id = "5ef8528213f8b244e57cbcc3";
+      const { id } = this.$root.$mp.query;
+      this.article = (await getArticle(id)).data;
       this.article.create_at_time = getTimeFromNow(this.article.create_at);
 
       // wxParse 会默认将换行符清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
