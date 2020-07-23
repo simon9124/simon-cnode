@@ -35,7 +35,21 @@ catchTouchMove() {
 }
 ```
 
-**mppvue：**
+- 带参传值，JSON.parse 无法识别特殊字符，可能报错 `Unexpected end of JSON input`，需在传值和解析时分别做编码解码处理 `encodeURIComponent` 和 `decodeURIComponent`
+
+```js
+// 跳转页传值
+wx.navigateTo({
+  url: `/pages/user/topic/main?topicList=${encodeURIComponent(JSON.stringify(Obj))}`
+});
+
+// 调转页接收值
+onLoad () {
+  this.topicList = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
+},
+```
+
+**mpvue：**
 
 - 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
 - 在 mpvue 中使用 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input(\$event)事件监听输入内容的变化）
@@ -58,6 +72,8 @@ export default {
   }
 }
 ```
+
+- 新增页面时，在**真机调试**时会提示 page "xxx" has not been registered yet：webpack 编译的文件是由配置的 entry 决定的，新增的页面并没有添加进 entry，需重新编译 `npm run dev`
 
 **mpvue-wxParse 小程序富文本**
 
