@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/main",
     "pages/user/main",
     "pages/user/topic/main",
-    "pages/index/main",
     "pages/article/main",
     "pages/out/main"
   ],
