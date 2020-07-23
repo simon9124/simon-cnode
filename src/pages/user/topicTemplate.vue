@@ -18,7 +18,8 @@
       <div class="cell-time absolute">{{article.last_reply_time}}</div>
     </div>
 
-    <div class="reply-more"
+    <div v-if="viewMore"
+         class="reply-more"
          @click="goToTopicList()">查看更多»</div>
 
   </div>
@@ -41,6 +42,11 @@ export default {
     topicList: {
       type: Array,
       default: () => []
+    },
+    // 是否显示 - 查看更多
+    viewMore: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {

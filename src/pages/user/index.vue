@@ -66,46 +66,6 @@
                         @goToArticle="goToArticle"
                         @goToTopicList="goToTopicList"></topic-template>
 
-        <!-- 最近创建的话题 -->
-        <!-- <div class="reply"
-             v-if="userInfo">
-          <div class="reply-count">最近创建的话题</div>
-
-          <div class="cell relative"
-               v-for="(article,i) in userInfo.recent_topicsTop5"
-               :key="article.id">
-            <img :src="article.author.avatar_url"
-                 @click="goToUser(article.author.loginname)">
-            <div class="cell-title"
-                 @click="goToArticle(i)">{{article.title}}
-            </div>
-            <div class="cell-time absolute">{{article.last_reply_time}}</div>
-          </div>
-
-          <div class="reply-more">查看更多»</div>
-
-        </div> -->
-
-        <!-- 最近参与的话题 -->
-        <!-- <div class="reply"
-             v-if="userInfo">
-          <div class="reply-count">最近参与的话题</div>
-
-          <div class="cell relative"
-               v-for="(article,i) in userInfo.recent_repliesTop5"
-               :key="article.id">
-            <img :src="article.author.avatar_url"
-                 @click="goToUser(article.author.loginname)">
-            <div class="cell-title"
-                 @click="goToArticle(i)">{{article.title}}
-            </div>
-            <div class="cell-time absolute">{{article.last_reply_time}}</div>
-          </div>
-
-          <div class="reply-more">查看更多»</div>
-
-        </div> -->
-
       </scroll-view>
 
     </div>
@@ -120,7 +80,7 @@ import { getTimeFromNow } from "@/utils/filters";
 // api
 import { getUser, getGithubPerson, getUserCollect } from "@/api/user/index.js";
 
-const dataStack = [];
+const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
 
 export default {
   components: { TopicTemplate }, // 组件：用户 创建/参与 的话题列表
@@ -157,8 +117,8 @@ export default {
       this.userGithubInfo = null;
       this.userCollectInfo = null;
       wx.showLoading({ title: "加载中" });
-      const name = "hyj1991";
-      // const { name } = this.$root.$mp.query;
+      // const name = "hyj1991";
+      const { name } = this.$root.$mp.query;
       this.userInfo = (await getUser(name)).data;
       this.userCollectInfo = (await getUserCollect(name)).data;
 
@@ -214,9 +174,8 @@ export default {
       });
     },
     goToTopicList (type) {
-      console.log(this.userInfo[type]);
       wx.navigateTo({
-        url: "/pages/user/topic/main?list=${}"
+        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&type=${type}&topicList=${encodeURIComponent(JSON.stringify(this.userInfo[type]))}`
       });
     },
   }

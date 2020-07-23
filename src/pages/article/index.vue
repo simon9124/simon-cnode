@@ -122,7 +122,7 @@ import { getTimeFromNow } from "@/utils/filters";
 // api
 import { getArticle } from "@/api/article/index.js";
 
-const dataStack = [];
+const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
 
 export default {
   components: { HeaderContainer, wxParse },

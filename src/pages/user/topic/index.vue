@@ -10,20 +10,20 @@
         <div class='container-content-common-header'>
           <div class='breadcrumb'>
             <span href='/'
-                  class="breadcrumb-dashboard">主页</span>
+                  class="breadcrumb-dashboard"
+                  @click="goBackHome">主页</span>
             <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
-            <span></span>
+            <span class="breadcrumb-dashboard"
+                  @click="goBackUser">{{user}}的主页</span>
           </div>
         </div>
 
         <!-- 用户 创建/参与 的话题列表 -->
-        <topic-template
-
-                        :title="topic.title"
-                        :type="topic.type"
-                        :topicList="userInfo[topic.listValue]"></topic-template>
-        <!-- @goToArticle="goToArticle" -->
-        <!-- @goToTopicList="goToTopicList" -->
+        <topic-template :title="title"
+                        :type="type"
+                        :topicList="topicList"
+                        :viewMore="false"
+                        @goToArticle="goToArticle"></topic-template>
 
       </scroll-view>
 
@@ -32,15 +32,43 @@
 </template>
 
 <script>
+// components
 import TopicTemplate from "../topicTemplate";
 
 export default {
   components: { TopicTemplate }, // 组件：用户 创建/参与 的话题列表
+  data () {
+    return {
+      user: "", // 用户名
+      type: "", // 类型 recent_topics or recent_replies
+      topicList: [], // 话题列表
+      title: "" // 顶部标题 XX 创建/参与 的话题
+    };
+  },
+  onLoad () {
+    this.user = this.$root.$mp.query.user;
+    this.type = this.$root.$mp.query.type;
+    const type = this.type === "recent_topics" ? " 创建" : " 参与";
+    this.title = this.user + type + "的话题";
+    this.topicList = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
+  },
   methods: {
+    // 页面返回 - home
+    goBackHome () {
+      wx.reLaunch({
+        url: "/pages/index/main"
+      });
+    },
+    // 页面返回 - user
+    goBackUser () {
+      var pages = getCurrentPages(); //当前页面
+      var beforePage = pages[pages.length - 2]; //前一页
+      wx.navigateBack();
+    },
     // 页面跳转 - article
     goToArticle (obj) {
       wx.navigateTo({
-        url: `/pages/article/main?id=${this.userInfo[obj.type][obj.i].id}`
+        url: `/pages/article/main?id=${this.topicList[obj.i].id}`
       });
     },
   },
