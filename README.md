@@ -49,6 +49,19 @@ onLoad () {
 },
 ```
 
+- 根据 sitemap 的规则[0]，当前页面 [pages/index/index] 将被索引：
+
+```json
+// project.config.json
+{
+  "checkSiteMap": false
+}
+```
+
+- 新增页面时，在**真机调试**时会提示 page "xxx" has not been registered yet：webpack 编译的文件是由配置的 entry 决定的，新增的页面并没有添加进 entry，需重新编译 `npm run dev`。若仍不生效，试试卸载开发者工具再安装最新稳定版：https://developers.weixin.qq.com/miniprogram/dev/devtools/stable.html
+
+- 真机测试时，最好取消勾选“不校验合法域名”，可能造成页面卡住
+
 **mpvue：**
 
 - 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
@@ -73,7 +86,7 @@ export default {
 }
 ```
 
-- 新增页面时，在**真机调试**时会提示 page "xxx" has not been registered yet：webpack 编译的文件是由配置的 entry 决定的，新增的页面并没有添加进 entry，需重新编译 `npm run dev`
+- `mpvue` 暂停了更新，因此在最新版开发者工具打开会有很多 `warnings`，不影响开发和调试，可以屏蔽掉
 
 **mpvue-wxParse 小程序富文本**
 
