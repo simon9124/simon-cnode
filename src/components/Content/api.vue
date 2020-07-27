@@ -6,8 +6,7 @@
       <!-- header -->
       <div class='container-content-common-header'>
         <div class='breadcrumb'>
-          <span href='/'
-                class="breadcrumb-dashboard">主页</span>
+          <home-back></home-back>
           <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
           <span>API</span>
         </div>
@@ -91,10 +90,13 @@
 </template>
 
 <script>
+// components
+import HomeBack from "@/components/homeBack";
 // mockData
 import { APIData } from "./mockContent";
 
 export default {
+  components: { HomeBack }, // 组件：返回首页
   data () {
     return {
       content: APIData

@@ -6,8 +6,7 @@
       <!-- header -->
       <div class='container-content-common-header'>
         <div class='breadcrumb'>
-          <span href='/'
-                class="breadcrumb-dashboard">主页</span>
+          <home-back></home-back>
           <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
           <span>{{isLogin?'登录':'找回密码'}}</span>
         </div>
@@ -115,12 +114,13 @@
 import Bus from "@/utils/bus";
 import { validateEmail } from "@/utils/validate";
 // components
+import HomeBack from "@/components/homeBack";
 import mpButton from "mpvue-weui/src/button";
 import mpInput from "mpvue-weui/src/input";
 import mpToast from "mpvue-weui/src/toast";
 
 export default {
-  components: { mpButton, mpInput, mpToast },
+  components: { HomeBack, mpButton, mpInput, mpToast },
   data () {
     return {
       // 页面属性：登录 or 找回密码
