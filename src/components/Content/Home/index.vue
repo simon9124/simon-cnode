@@ -82,13 +82,9 @@ import { getHomeContent } from "@/api/content/index.js";
 export default {
   data () {
     return {
-      // 文章列表
-      articles: null,
-      // 主题列表
-      tabList: tabList,
-      // 页码列表
-      pageList: [1, 2, 3, 4, 5],
-      // 每个主题分别对应的页数（找不到官方api，暂在此处写成固定值）
+      articles: null,// 文章列表
+      tabList: tabList,// 主题列表
+      pageList: [1, 2, 3, 4, 5],// 页码列表
       pages: {
         all: 49,
         good: 18,
@@ -96,13 +92,10 @@ export default {
         ask: 25,
         job: 9,
         dev: 30
-      },
-      // 当前页码
-      page: 1,
-      // 当前每一页的主题数量
-      limit: 40,
-      // 当前主题分类：all/ask/share/job/good/dev
-      tab: "all"
+      },// 每个主题分别对应的页数（找不到官方api，暂在此处写成固定值）
+      page: 1,// 当前页码
+      limit: 40, // 当前每一页的主题数量
+      tab: "all" // 当前主题分类：all/ask/share/job/good/dev
     };
   },
   onLoad () {

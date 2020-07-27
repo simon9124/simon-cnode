@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/user/main",
+    "pages/index/main",
     "pages/user/topic/main",
     "pages/article/main",
     "pages/out/main"
   ],
+  "homePage": "pages/index/main",
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#444",
