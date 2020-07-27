@@ -50,11 +50,15 @@ export default {
     }
   },
   methods: {
-    // 页面跳转 - article
+    // 子组件事件回调：页面跳转 - user
+    goToUser (name) {
+      this.$emit("goToUser", name);
+    },
+    // 子组件事件回调：页面跳转 - article
     goToArticle (i) {
       this.$emit("goToArticle", { type: this.type, i: i });
     },
-    // 页面跳转 - topicList
+    // 子组件事件回调：页面跳转 - topicList
     goToTopicList (i) {
       this.$emit("goToTopicList", this.type);
     },

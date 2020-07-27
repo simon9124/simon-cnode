@@ -9,8 +9,7 @@
         <!-- header -->
         <div class='container-content-common-header'>
           <div class='breadcrumb'>
-            <span href='/'
-                  class="breadcrumb-dashboard">主页</span>
+            <home-back></home-back>
             <span class="breadcrumb-slant">&nbsp;/&nbsp;</span>
             <span></span>
           </div>
@@ -63,6 +62,7 @@
                         :title="topic.title"
                         :type="topic.type"
                         :topicList="userInfo[topic.listValue]"
+                        @goToUser="goToUser"
                         @goToArticle="goToArticle"
                         @goToTopicList="goToTopicList"></topic-template>
 
@@ -75,6 +75,7 @@
 <script>
 // components
 import TopicTemplate from "./topicTemplate";
+import HomeBack from "@/components/homeBack";
 // function
 import { getTimeFromNow } from "@/utils/filters";
 // api
@@ -83,7 +84,10 @@ import { getUser, getGithubPerson, getUserCollect } from "@/api/user/index.js";
 const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
 
 export default {
-  components: { TopicTemplate }, // 组件：用户 创建/参与 的话题列表
+  components: {
+    TopicTemplate, // 组件：用户 创建/参与 的话题列表
+    HomeBack // 组件：返回首页
+  },
   data () {
     return {
       userInfo: null, // 用户信息
@@ -117,8 +121,8 @@ export default {
       this.userGithubInfo = null;
       this.userCollectInfo = null;
       wx.showLoading({ title: "加载中" });
-      // const name = "hyj1991";
-      const { name } = this.$root.$mp.query;
+      const name = "hyj1991";
+      // const { name } = this.$root.$mp.query;
       this.userInfo = (await getUser(name)).data;
       this.userCollectInfo = (await getUserCollect(name)).data;
 
@@ -165,6 +169,13 @@ export default {
       wx.navigateTo({
         url: `/pages/out/main?href=${href}`,
       });
+    },
+    // 页面跳转 - user
+    goToUser (name) {
+      this.userInfo.loginname !== name &&
+        wx.navigateTo({
+          url: `/pages/user/main?name=${name}`
+        });
     },
     // 页面跳转 - article
     goToArticle (obj) {
