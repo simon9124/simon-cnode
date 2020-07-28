@@ -74,8 +74,8 @@
 
 <script>
 // components
-import TopicTemplate from "./topicTemplate";
-import HomeBack from "@/components/homeBack";
+import TopicTemplate from "./topicTemplate"; // 组件：用户 创建/参与 的话题列表
+import HomeBack from "@/components/homeBack"; // 组件：返回首页
 // function
 import { getTimeFromNow } from "@/utils/filters";
 // api
@@ -84,10 +84,7 @@ import { getUser, getGithubPerson, getUserCollect } from "@/api/user/index.js";
 const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
 
 export default {
-  components: {
-    TopicTemplate, // 组件：用户 创建/参与 的话题列表
-    HomeBack // 组件：返回首页
-  },
+  components: { TopicTemplate, HomeBack },
   data () {
     return {
       userInfo: null, // 用户信息

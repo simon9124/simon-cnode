@@ -25,21 +25,9 @@
                         @goToArticle="goToArticle"></topic-template>
 
         <!-- 分页 -->
-        <div class="page">
-          <span class="page-block center"
-                @click="getData(1)">{{'«'}}</span>
-          <span v-if="pageList[2]-2>1"
-                class="page-block center">...</span>
-          <span v-for="pageNum in pageList"
-                :key="pageNum"
-                class="page-block center"
-                :style="{color:pageNum===page?'#80bd01':'#778087'}"
-                @click="getData(pageNum)">{{pageNum}}</span>
-          <span v-if="pageList.length>5"
-                class="page-block center">...</span>
-          <span class="page-block center"
-                @click="getData(pageList.length)">{{'»'}}</span>
-        </div>
+        <pagination :total="topicListOrg.length"
+                    :page="page"
+                    @getData="getData"></pagination>
 
       </scroll-view>
 
@@ -49,16 +37,14 @@
 
 <script>
 // components
-import TopicTemplate from "../topicTemplate";
-import HomeBack from "@/components/homeBack";
+import TopicTemplate from "../topicTemplate"; // 组件：用户 创建/参与 的话题列表
+import HomeBack from "@/components/homeBack"; // 组件：返回首页
+import Pagination from "@/components/pagination"; // 组件：分页
 
 const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
 
 export default {
-  components: {
-    TopicTemplate, // 组件：用户 创建/参与 的话题列表
-    HomeBack // 组件：返回首页
-  },
+  components: { TopicTemplate, HomeBack, Pagination },
   data () {
     return {
       user: "", // 用户名
@@ -66,9 +52,7 @@ export default {
       title: "", // 顶部标题 XX 创建/参与 的话题
       topicListOrg: [], // 话题列表 - 全部
       topicList: [], // 话题列表 - 当页
-
-      pageList: [], // 页码列表
-      page: 1, // 当前页码
+      page: 1,// 当前页码
       limit: 10, // 每页主题数量
     };
   },
@@ -86,33 +70,15 @@ export default {
       this.type = this.$root.$mp.query.type;
       const type = this.type === "recent_topics" ? " 创建" : " 参与";
       this.title = this.user + type + "的话题";
-      this.topicListOrg = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
-
-      /* 配置分页页码 */
-      this.pageList = []; // 清空页码
-      const pageMax = Math.ceil(this.topicListOrg.length / this.limit); // 获取页码上限，向上取整
-      var i = 1;
-      do {
-        this.pageList.push(i);
-        i++;
-      } while (i <= pageMax);
-      this.pageList.length > 5 && // 最多显示5页
-        (this.pageList = [this.page - 2, this.page - 1, this.page, this.page + 1, this.page + 2]);
       this.getData(this.page);
     },
     // 分页
     getData (page) {
-      this.page = page; // 当前页码添加颜色
+      this.page = page;
       this.topicList = this.topicListOrg.slice(
-        (page - 1) * this.limit,
-        page * this.limit
+        (this.page - 1) * this.limit,
+        this.page * this.limit
       );
-    },
-    // 页面返回 - home
-    goBackHome () {
-      wx.reLaunch({
-        url: "/pages/index/main"
-      });
     },
     // 页面返回 - user
     goBackUser () {

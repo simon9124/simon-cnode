@@ -11,7 +11,7 @@
             <span class="breadcrumb-tab"
                   v-for="tabItem in tabList"
                   :key="tabItem.type"
-                  @click="tab=tabItem.type;page=1;getData()"
+                  @click="tab=tabItem.type;page=1;getData(1)"
                   :style="{color:tabItem.type===tab?'#fff':'#80bd01',
                          backgroundColor:tabItem.type===tab?'#80bd01':'transparent',
                          }">
@@ -48,21 +48,10 @@
         </div>
 
         <!-- 分页 -->
-        <div class="page">
-          <span class="page-block center"
-                @click="page=1;getData()">{{'«'}}</span>
-          <span v-if="pageList[2]-2>1"
-                class="page-block center">...</span>
-          <span v-for="pageNum in pageList"
-                :key="pageNum"
-                class="page-block center"
-                :style="{color:pageNum===page?'#80bd01':'#778087'}"
-                @click="page=pageNum;getData()">{{pageNum}}</span>
-          <span v-if="pages[tab]- pageList[2]>2"
-                class="page-block center">...</span>
-          <span class="page-block center"
-                @click="page=pages[tab];getData()">{{'»'}}</span>
-        </div>
+        <pagination :total="pages[tab]*limit"
+                    :limit="limit"
+                    :page="page"
+                    @getData="getData"></pagination>
 
       </div>
 
@@ -72,6 +61,8 @@
 </template>
 
 <script>
+// components
+import Pagination from "@/components/pagination"; // 组件：分页
 // data
 import { tabList } from "@/common/data";
 // function
@@ -80,11 +71,11 @@ import { getTimeFromNow } from "@/utils/filters";
 import { getHomeContent } from "@/api/content/index.js";
 
 export default {
+  components: { Pagination },
   data () {
     return {
       articles: null,// 文章列表
       tabList: tabList,// 主题列表
-      pageList: [1, 2, 3, 4, 5],// 页码列表
       pages: {
         all: 49,
         good: 18,
@@ -93,17 +84,18 @@ export default {
         job: 9,
         dev: 30
       },// 每个主题分别对应的页数（找不到官方api，暂在此处写成固定值）
+      tab: "all", // 当前主题分类：all/ask/share/job/good/dev
       page: 1,// 当前页码
-      limit: 40, // 当前每一页的主题数量
-      tab: "all" // 当前主题分类：all/ask/share/job/good/dev
+      limit: 40 // 当前每一页的主题数量
     };
   },
   onLoad () {
-    this.getData();
+    this.getData(this.page);
   },
   methods: {
     // 获取文章列表
-    async getData () {
+    async getData (page) {
+      this.page = page;
       wx.showLoading({
         title: "加载中"
       });
@@ -134,20 +126,6 @@ export default {
       wx.navigateTo({
         url: `/pages/user/main?name=${name}`
       });
-    }
-  },
-  watch: {
-    // 监听页码变化 -> 分页组件更新
-    page (val) {
-      if (val <= 3) {
-        this.pageList = [1, 2, 3, 4, 5];
-      } else if (val === this.pages[this.tab]) {
-        this.pageList = [val - 2, val - 1, val];
-      } else if (val === this.pages[this.tab] - 1) {
-        this.pageList = [val - 2, val - 1, val, val + 1];
-      } else {
-        this.pageList = [val - 2, val - 1, val, val + 1, val + 2];
-      }
     }
   }
 };
