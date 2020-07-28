@@ -59,12 +59,12 @@
 
 <script>
 // components
-import HomeBack from "@/components/homeBack";
+import HomeBack from "@/components/homeBack"; // 组件：返回首页
 // mockData
 import { NewData } from "./mockContent";
 
 export default {
-  components: { HomeBack }, // 组件：返回首页
+  components: { HomeBack },
   data () {
     return {
       content: NewData
