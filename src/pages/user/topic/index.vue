@@ -70,6 +70,7 @@ export default {
       this.type = this.$root.$mp.query.type;
       const type = this.type === "recent_topics" ? " 创建" : " 参与";
       this.title = this.user + type + "的话题";
+      this.topicListOrg = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
       this.getData(this.page);
     },
     // 分页
