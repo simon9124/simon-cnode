@@ -31,10 +31,11 @@
              :key="article.id">
           <img :src="article.author.avatar_url"
                @click="goToUser(article.author.loginname)">
-          <div class="cell-tag"
+          <div v-if="article.top||article.good||article.tab!==undefined"
+               class="cell-tag"
                :style="{ background: article.top || article.good ? '#80bd01':'#e5e5e5',
                          color: article.top || article.good ? '#fff':'#999' }">
-            {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':''}}
+            {{article.top?'置顶':article.good?'精华':article.tab==='share'?'分享':article.tab==='ask'?'问答':article.tab==='job'?'招聘':article.tab==='dev'?'测试':''}}
           </div>
           <div class="cell-title"
                @click="goToArticle(i)">{{article.title}}
