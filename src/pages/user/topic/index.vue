@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       user: "", // 用户名
-      type: "", // 类型 recent_topics or recent_replies
+      type: "", // 类型 recent_topics / recent_replies / topic_collect
       title: "", // 顶部标题 XX 创建/参与 的话题
       topicListOrg: [], // 话题列表 - 全部
       topicList: [], // 话题列表 - 当页
@@ -68,7 +68,9 @@ export default {
     initData () {
       this.user = this.$root.$mp.query.user;
       this.type = this.$root.$mp.query.type;
-      const type = this.type === "recent_topics" ? " 创建" : " 参与";
+      const type =
+        this.type === "recent_topics" ? " 创建" :
+          this.type === "recent_replies" ? " 参与" : " 收藏";
       this.title = this.user + type + "的话题";
       this.topicListOrg = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
       this.getData(this.page);

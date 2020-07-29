@@ -24,9 +24,10 @@
           <span class="userInfo-name">{{userInfo.loginname}}</span>
           <div class="userInfo-score">{{userInfo.score}} 积分</div>
 
-          <!-- userCollectInfo -->
-          <div v-if="userCollectInfo!==null && userCollectInfo.length!==0"
-               class="userInfo-collect">{{userCollectInfo.length}}个话题收藏</div>
+          <!-- userCollectList -->
+          <div v-if="userCollectList!==null && userCollectList.length!==0"
+               class="userInfo-collect"
+               @click="goToCollectList">{{userCollectList.length}}个话题收藏</div>
 
           <!-- userGithubInfo -->
           <div class="userInfo-infos"
@@ -62,9 +63,11 @@
                         :title="topic.title"
                         :type="topic.type"
                         :topicList="userInfo[topic.listValue]"
+                        topicColor="#08c"
                         @goToUser="goToUser"
                         @goToArticle="goToArticle"
-                        @goToTopicList="goToTopicList"></topic-template>
+                        @goToTopicList="goToTopicList">
+        </topic-template>
 
       </scroll-view>
 
@@ -89,7 +92,7 @@ export default {
     return {
       userInfo: null, // 用户信息
       userGithubInfo: null, // 用户github信息
-      userCollectInfo: null, // 用户收藏
+      userCollectList: null, // 用户收藏列表
       userTopics: [
         {
           title: "最近创建的话题",
@@ -116,12 +119,12 @@ export default {
     async getData () {
       this.userInfo = null;
       this.userGithubInfo = null;
-      this.userCollectInfo = null;
+      this.userCollectList = null;
       wx.showLoading({ title: "加载中" });
-      const name = "hyj1991";
-      // const { name } = this.$root.$mp.query;
+      // const name = "hyj1991";
+      const { name } = this.$root.$mp.query;
       this.userInfo = (await getUser(name)).data;
-      this.userCollectInfo = (await getUserCollect(name)).data;
+      this.userCollectList = (await getUserCollect(name)).data;
 
       // 用户注册了github -> 调用github接口
       this.userInfo.githubUsername !== undefined &&
@@ -181,11 +184,18 @@ export default {
         url: `/pages/article/main?id=${this.userInfo[obj.type][obj.i].id}`
       });
     },
+    // 页面跳转 - topic
     goToTopicList (type) {
       wx.navigateTo({
         url: `/pages/user/topic/main?user=${this.userInfo.loginname}&type=${type}&topicList=${encodeURIComponent(JSON.stringify(this.userInfo[type]))}`
       });
     },
+    // 页面跳转 - collect
+    goToCollectList () {
+      wx.navigateTo({
+        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&type=topic_collect&topicList=${encodeURIComponent(JSON.stringify(this.userCollectList))}`
+      });
+    }
   }
 };
 </script>

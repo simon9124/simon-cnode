@@ -13,6 +13,7 @@
       <img :src="article.author.avatar_url"
            @click="goToUser(article.author.loginname)">
       <div class="cell-title"
+           :style="{color:topicColor}"
            @click="goToArticle(i)">{{article.title}}
       </div>
       <div class="cell-time absolute">{{article.last_reply_time}}</div>
@@ -47,6 +48,10 @@ export default {
     viewMore: {
       type: Boolean,
       default: true
+    },
+    topicColor: {
+      type: String,
+      default: "#333"
     }
   },
   methods: {
