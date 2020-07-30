@@ -11,7 +11,7 @@
             <span class="breadcrumb-tab"
                   v-for="tabItem in tabList"
                   :key="tabItem.type"
-                  @click="tab=tabItem.type;page=1;getData(1)"
+                  @click="tab=tabItem.type;page=1;getData()"
                   :style="{color:tabItem.type===tab?'#fff':'#80bd01',
                          backgroundColor:tabItem.type===tab?'#80bd01':'transparent',
                          }">
@@ -52,7 +52,7 @@
         <pagination :total="pages[tab]*limit"
                     :limit="limit"
                     :page="page"
-                    @getData="getData"></pagination>
+                    @page-change="pageChange"></pagination>
 
       </div>
 
@@ -91,12 +91,11 @@ export default {
     };
   },
   onLoad () {
-    this.getData(this.page);
+    this.getData();
   },
   methods: {
     // 获取文章列表
-    async getData (page) {
-      this.page = page;
+    async getData () {
       wx.showLoading({
         title: "加载中"
       });
@@ -115,6 +114,11 @@ export default {
         );
       });
       wx.hideLoading();
+    },
+    // 分页
+    pageChange (page) {
+      this.page = page;
+      this.getData();
     },
     // 页面跳转 - article
     goToArticle (i) {

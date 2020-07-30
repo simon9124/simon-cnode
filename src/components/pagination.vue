@@ -1,25 +1,25 @@
 <template>
   <div class="page">
     <span class="page-block center"
-          @click="getData(1)">{{'«'}}</span>
+          @click="pageChange(1)">{{'«'}}</span>
     <span v-if="pageList[2]-2>1"
           class="page-block center">...</span>
     <span v-for="pageNum in pageList"
           :key="pageNum"
           class="page-block center"
           :style="{color:pageNum===page?'#80bd01':'#778087'}"
-          @click="getData(pageNum)">{{pageNum}}</span>
+          @click="pageChange(pageNum)">{{pageNum}}</span>
     <span v-if="pageMax-pageList[2]>2"
           class="page-block center">...</span>
     <span class="page-block center"
-          @click="getData(pageMax)">{{'»'}}</span>
+          @click="pageChange(pageMax)">{{'»'}}</span>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    // 页码总数
+    // 内容总数
     total: {
       type: Number,
       default: 0
@@ -32,38 +32,37 @@ export default {
     // 当前页码
     page: {
       type: Number,
-      default: 10
+      default: 1
     },
   },
   data () {
     return {
-      pageList: [], // 页码列表
-      pageCurrent: 1, // 当前页码
-      pageMax: 0 // 最大页数
+      pageList: [] // 页码列表
     };
+  },
+  computed: {
+    // 最大页数
+    pageMax () {
+      return Math.ceil(this.total / this.limit);
+    },
   },
   onLoad () {
     this.initData();
   },
   methods: {
     initData () {
-      this.$nextTick(() => {
-        this.pageList = []; // 清空页码
-        this.pageMax = Math.ceil(this.total / this.limit); //
-        var i = 1;
-        do {
-          this.pageList.push(i);
-          i++;
-        } while (i <= this.pageMax);
-        this.pageList.length > 5 && // 最多显示5页
-          (this.pageList = this.pageList.slice(0, 5));
-        this.pageCurrent = this.page;
-      });
+      this.pageList = []; // 清空页码
+      var i = 1;
+      do {
+        this.pageList.push(i);
+        i++;
+      } while (i <= this.pageMax);
+      this.pageList.length > 5 && // 最多显示5页
+        (this.pageList = this.pageList.slice(0, 5));
     },
     // 子组件事件回调：分页
-    getData (pageCurrent) {
-      this.pageCurrent = pageCurrent; // 当前页码添加颜色
-      this.$emit("getData", pageCurrent);
+    pageChange (pageCurrent) {
+      this.$emit("page-change", pageCurrent);
     },
   },
   watch: {

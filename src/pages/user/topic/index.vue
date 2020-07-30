@@ -27,7 +27,7 @@
         <!-- 分页 -->
         <pagination :total="topicListOrg.length"
                     :page="page"
-                    @getData="getData"></pagination>
+                    @page-change="pageChange"></pagination>
 
       </scroll-view>
 
@@ -73,15 +73,19 @@ export default {
           this.type === "recent_replies" ? " 参与" : " 收藏";
       this.title = this.user + type + "的话题";
       this.topicListOrg = JSON.parse(decodeURIComponent(this.$root.$mp.query.topicList));
-      this.getData(this.page);
+      this.getData();
     },
-    // 分页
-    getData (page) {
-      this.page = page;
+    // list数据处理
+    getData () {
       this.topicList = this.topicListOrg.slice(
         (this.page - 1) * this.limit,
         this.page * this.limit
       );
+    },
+    // 分页
+    pageChange (page) {
+      this.page = page;
+      this.getData();
     },
     // 页面返回 - user
     goBackUser () {
