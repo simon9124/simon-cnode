@@ -3,13 +3,13 @@
     <div class="container-header-inner">
 
       <!-- logo -->
-      <img src="http://static2.cnodejs.org/public/images/cnodejs_light.svg">
+      <!-- <img src="http://static2.cnodejs.org/public/images/cnodejs_light.svg"> -->
 
       <!-- search -->
-      <input confirm-type="search"
+      <!-- <input confirm-type="search"
              :value="searchValue"
              @focus="searchFocus"
-             @confirm="search($event)" />
+             @confirm="search($event)" /> -->
 
       <!-- 头部导航栏 -->
       <tab></tab>
@@ -56,7 +56,7 @@ export default {
     img {
       width: 120px;
       height: 28px;
-      padding: 10px 0;
+      // padding: 10px 0;
     }
     input {
       font-size: 13px;
