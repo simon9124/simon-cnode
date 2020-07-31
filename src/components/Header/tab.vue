@@ -43,7 +43,7 @@ export default {
   position: relative;
   white-space: nowrap;
   &-item {
-    font-size: 13px;
+    font-size: 0.86em;
     color: #fff;
     padding: 10px 15px;
     text-align: center;
