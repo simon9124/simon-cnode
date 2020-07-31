@@ -41,8 +41,6 @@ import TopicTemplate from "../topicTemplate"; // 组件：用户 创建/参与 �
 import HomeBack from "@/components/homeBack"; // 组件：返回首页
 import Pagination from "@/components/pagination"; // 组件：分页
 
-const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
-
 export default {
   components: { TopicTemplate, HomeBack, Pagination },
   data () {
@@ -57,11 +55,7 @@ export default {
     };
   },
   onLoad () {
-    dataStack.push({ ...this.$data }); // 备份
     this.initData();
-  },
-  onUnload () {
-    Object.assign(this.$data, dataStack.pop()); //恢复
   },
   methods: {
     // 数据渲染

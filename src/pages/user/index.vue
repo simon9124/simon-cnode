@@ -84,8 +84,6 @@ import { getTimeFromNow } from "@/utils/filters";
 // api
 import { getUser, getGithubPerson, getUserCollect } from "@/api/user/index.js";
 
-const dataStack = []; // 解决mpvue相同组件数据不更新问题，建立栈堆
-
 export default {
   components: { TopicTemplate, HomeBack },
   data () {
@@ -108,11 +106,7 @@ export default {
     };
   },
   onLoad () {
-    dataStack.push({ ...this.$data }); // 备份
     this.getData();
-  },
-  onUnload () {
-    Object.assign(this.$data, dataStack.pop()); //恢复
   },
   methods: {
     // 数据渲染
