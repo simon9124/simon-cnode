@@ -67,7 +67,7 @@ onLoad () {
 - 在 mpvue 中使用 iview weapp 等第三方组件库的方法：官方的办法（在 main.js 中引用 usingComponents）怎么都不行
 - 在 mpvue 中使用 weui 的 input 组件时，每次输入一个字符后会自动失去焦点（解决方法：用 vue 原生的 input 和@input(\$event)事件监听输入内容的变化）
 - mpvue 的生命周期：vue 的 created 会先于小程序 onLoad 函数调用，小程序第一页出现前就已经创建出了所有页面对应的 Vue 实例。如果把接口请求放到 created 生命周期，会造成接口提早调用，产生不必要的 bug。因此，页面加载的方法需要放在 onLoad 周期中。同理，每次用小程序原生的 wx.navigateBack 方法回到上一个页面时，并没有销毁内存中的数据，需要主动在 onUnload 时销毁（而非 vue 中的 beforeDestroy），或者在 onload 时重置数据，否则重新加载时，Vue 实例还保存着上一次加载页面时的数据。详见[mpvue 生命周期](http://mpvue.com/mpvue/#实例生命周期)
-- mpvue 经典 bug——同一路由切换时，上一次的页面数据会保留 https://github.com/Meituan-Dianping/mpvue/issues/140
+- mpvue 经典 bug：同一路由切换时，上一次的页面数据会保留 https://github.com/Meituan-Dianping/mpvue/issues/140
 
 ```js
 const dataStack = []; // 建一个页面栈
@@ -84,6 +84,39 @@ export default {
     Object.assign(this.$data, dataStack.pop()); // 恢复数据
   }
 }
+```
+
+由于 vue 的 mixin 中的代码先于页面执行，因此上述方法可优化到 mixin.js 文件中：
+
+```js
+let mixin = {
+  data() {
+    return {
+      dataStack: [], // 解决mpvue相同组件数据不更新问题，建立栈堆
+    };
+  },
+  onUnload() {
+    Object.assign(this.$data, this.dataStack.pop()); // 恢复
+  },
+  onLoad() {
+    this.dataStack.push({ ...JSON.parse(JSON.stringify(this.$data)) }); // 备份
+  },
+};
+export default mixin;
+```
+
+再在文件对应的 main 中引用：
+
+```js
+import Vue from "vue";
+import App from "./index";
+import mixin from "@/mixin"; // 引入mixin文件
+
+...
+Vue.mixin(mixin);
+
+const app = new Vue(App);
+app.$mount();
 ```
 
 - `mpvue` 暂停了更新，因此在最新版开发者工具打开会有很多 `warnings`，不影响开发和调试，可以屏蔽掉
