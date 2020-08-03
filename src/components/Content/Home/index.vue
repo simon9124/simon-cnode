@@ -1,7 +1,10 @@
 <template>
   <div class="container-content-common">
 
-    <scroll-view scroll-y>
+    <scroll-view scroll-y
+                 :scroll-top="scrollTop"
+                 scroll-with-animation
+                 style="height:500px">
 
       <!-- header -->
       <div class='container-content-common-header'>
@@ -58,6 +61,13 @@
 
     </scroll-view>
 
+    <!-- <back-to-top></back-to-top> -->
+
+    <div class='back-container'
+         @click="backTop">
+      回到顶部
+    </div>
+
   </div>
 </template>
 
@@ -71,8 +81,10 @@ import { getTimeFromNow } from "@/utils/filters";
 // api
 import { getHomeContent } from "@/api/content/index.js";
 
+import BackToTop from "@/components/backToTop";
+
 export default {
-  components: { Pagination },
+  components: { Pagination, BackToTop },
   data () {
     return {
       articles: null,// 文章列表
@@ -87,7 +99,9 @@ export default {
       },// 每个主题分别对应的页数（找不到官方api，暂在此处写成固定值）
       tab: "all", // 当前主题分类：all/ask/share/job/good/dev
       page: 1,// 当前页码
-      limit: 40 // 当前每一页的主题数量
+      limit: 40, // 当前每一页的主题数量
+
+      scrollTop: null
     };
   },
   onLoad () {
@@ -131,6 +145,11 @@ export default {
       wx.navigateTo({
         url: `/pages/user/main?name=${name}`
       });
+    },
+    // 回到顶部
+    backTop (e) {
+      this.scrollTop = 10;
+      this.scrollTop = 0;
     }
   }
 };
@@ -149,5 +168,21 @@ export default {
     padding: 0;
     border-top: none;
   }
+}
+.back-container {
+  width: 24px;
+  color: gray;
+  font-size: 0.86em;
+  line-height: 1.4em;
+  text-align: center;
+  padding: 12px 0 12px 5px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 12px 0 0 12px;
+  border-right: 0;
+  position: fixed;
+  right: 0;
+  bottom: 5px;
+  cursor: pointer;
 }
 </style>
