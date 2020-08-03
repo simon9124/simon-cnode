@@ -119,6 +119,8 @@ const app = new Vue(App);
 app.$mount();
 ```
 
+- 使用 `scroll-view` 的小程序原生组件时，若想实现 `@scroll`、`scroll-top` 等事件和属性，需手动设置 `scroll-view` 的动态或静态高度，否则无法触发
+
 - `mpvue` 暂停了更新，因此在最新版开发者工具打开会有很多 `warnings`，不影响开发和调试，可以屏蔽掉
 
 **mpvue-wxParse 小程序富文本**
