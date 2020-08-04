@@ -1,19 +1,26 @@
 <template>
   <div class='back-container'
-       @click="backTop">
+       @click="backTop"
+       v-show="backToTopDisplay">
     回到顶部
   </div>
 </template>
 
 <script>
-
 export default {
-  methods: {
-    // 点击图片回到顶部方法，加计时器是为了过渡顺滑
-    backTop (e) {
-      console.log("回到顶部");
+  props: {
+    // 是否显示
+    backToTopDisplay: {
+      type: Boolean,
+      default: false
     },
   },
+  methods: {
+    // 子组件事件回调：回到顶部
+    backTop (e) {
+      this.$emit("back-top", 0);
+    }
+  }
 };
 </script>
 
@@ -31,7 +38,20 @@ export default {
   border-right: 0;
   position: fixed;
   right: 0;
-  bottom: 5px;
+  bottom: 30px;
   cursor: pointer;
+  animation: fade-in;
+  animation-duration: 0.5s;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  } /*初始状态 透明度为0*/
+  40% {
+    opacity: 0;
+  } /*过渡状态 透明度为0*/
+  100% {
+    opacity: 1;
+  } /*结束状态 透明度为1*/
 }
 </style>
