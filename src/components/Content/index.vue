@@ -55,9 +55,7 @@ export default {
   },
   data () {
     return {
-      // 当前所在滑块 index
-      currentTab: 0,
-      startX: 0
+      currentTab: 0 // 当前所在滑块 index
     };
   },
   created () {
@@ -67,9 +65,10 @@ export default {
     });
   },
   methods: {
+    // 切换滑块
     swiperTab (e) {
       console.log(e);
-    }
+    },
   }
 };
 </script>

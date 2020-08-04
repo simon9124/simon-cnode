@@ -1,7 +1,10 @@
 <template>
   <div class="container-content-common">
 
-    <scroll-view scroll-y>
+    <scroll-view scroll-y
+                 :scroll-top="scrollTop"
+                 scroll-with-animation
+                 @scroll="scroll">
 
       <!-- header -->
       <div class='container-content-common-header'>
@@ -37,17 +40,22 @@
 
     </scroll-view>
 
+    <back-to-top :backToTopDisplay="backToTopDisplay"
+                 @back-top="scrollTop=10;scrollTop=0">
+    </back-to-top>
+
   </div>
 </template>
 
 <script>
 // components
 import HomeBack from "@/components/homeBack"; // 组件：返回首页
+import BackToTop from "@/components/backToTop"; // 组件：回到顶部
 // mockData
 import { AboutData } from "./mockContent";
 
 export default {
-  components: { HomeBack },
+  components: { HomeBack, BackToTop },
   data () {
     return {
       content: AboutData,
