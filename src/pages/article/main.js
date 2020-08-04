@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./index";
-import mixin from "@/mixin"; // 引入mixin文件
+import mixin from "@/mixins/mixin"; // 引入mixin文件
 
 // add this to handle exception
 Vue.config.errorHandler = function (err) {
