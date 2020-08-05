@@ -81,7 +81,7 @@ import { getHomeContent } from "@/api/content/index.js";
 
 export default {
   components: { Pagination, BackToTop },
-  data() {
+  data () {
     return {
       articles: null, // 文章列表
       tabList: tabList, // 主题列表
@@ -96,16 +96,17 @@ export default {
       tab: "all", // 当前主题分类：all/ask/share/job/good/dev
       page: 1, // 当前页码
       limit: 40 // 当前每一页的主题数量
-      // scrollTop: null, // scroll-view 距离顶部的滚动高度
-      // backToTopDisplay: false, // "回到顶部" 是否显示
     };
   },
-  onLoad() {
+  onLoad () {
     this.getData();
+  },
+  onUnLoad () {
+    this.a;
   },
   methods: {
     // 获取文章列表
-    async getData() {
+    async getData () {
       wx.showLoading({
         title: "加载中"
       });
@@ -126,33 +127,28 @@ export default {
       wx.hideLoading();
     },
     // 分页
-    pageChange(page) {
+    pageChange (page) {
       this.page = page;
       this.getData();
     },
     // 页面跳转 - article
-    goToArticle(i) {
+    goToArticle (i) {
       wx.navigateTo({
         url: `/pages/article/main?id=${this.articles[i].id}`
       });
     },
     // 页面跳转 - user
-    goToUser(name) {
+    goToUser (name) {
       wx.navigateTo({
         url: `/pages/user/main?name=${name}`
       });
     }
-    // 监听scroll-view滚动
-    // scroll (e) {
-    //   // console.log(e);
-    //   this.backToTopDisplay = e.mp.detail.scrollTop > 250;
-    // },
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "~@/common/content.scss";
+@import '~@/common/content.scss';
 .container-content-common /deep/ {
   .tabs {
     width: 100%;

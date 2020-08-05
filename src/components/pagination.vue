@@ -49,6 +49,20 @@ export default {
   onLoad () {
     this.initData();
   },
+  onUnload () {
+    // Fixbug-Watcher: 关闭页面时 Watcher 没有被取消订阅，再次进入页面会出现重复订阅的情况
+    let watcherId = -1;
+    if (this._watcher) {
+      watcherId = this._watcher.id;
+      this._watcher.teardown();
+    }
+    let i = this._watchers.length;
+    while (i--) {
+      if (this._watchers[i].id === watcherId) {
+        this._watchers[i].teardown();
+      }
+    }
+  },
   methods: {
     initData () {
       this.pageList = []; // 清空页码
