@@ -24,6 +24,7 @@
 - 小程序不支持跳转到外部链接，会屏蔽所有的`<a>`标签，项目内的所有外链暂时都是打不开的
 - 小程序 rich-text 组件内屏蔽所有节点的事件，无法获取被点击的内部元素
 - 根据单词换行：word-break: break-word;
+- 大部分情况下，小程序通过 font-family 修改字体无效
 - swiper 组件禁止手动滑动的方法：
 
 ```bash
@@ -61,6 +62,7 @@ onLoad () {
 - 新增页面时，在**真机调试**时会提示 page "xxx" has not been registered yet：webpack 编译的文件是由配置的 entry 决定的，新增的页面并没有添加进 entry，需重新编译 `npm run dev`。若仍不生效，试试卸载开发者工具再安装最新稳定版：https://developers.weixin.qq.com/miniprogram/dev/devtools/stable.html
 
 - 真机测试时，最好取消勾选“不校验合法域名”，可能造成页面卡住
+- 微信开发者工具性能不稳定，如果页面卡顿可尝试清理缓存，若还无效尝试卸载重装
 
 **mpvue：**
 
@@ -119,9 +121,11 @@ const app = new Vue(App);
 app.$mount();
 ```
 
+- mpvue 在 `mixin` 中不支持 `components`
 - 使用 `scroll-view` 的小程序原生组件时，若想实现 `@scroll`、`scroll-top` 等事件和属性，需手动设置 `scroll-view` 的动态或静态高度，否则无法触发
 - mpvue 不支持 vue 的 transition 标签，使用原生 css3 动画代替
 - mpvue 已暂停更新，在最新版开发者工具打开会有很多 `warnings`，不影响开发和调试，可以屏蔽掉
+- 在 mpvue 使用 wxParse 会造成页面非常卡顿，已放弃，使用原生 rich-text 代替
 
 **mpvue-wxParse 小程序富文本**
 
