@@ -162,6 +162,7 @@ export default {
         this.$set(this.article, "content", this.article.content.replace(new RegExp(key, "gi"),
           richTextHandingObj[key]));
       });
+      // console.log(this.article.content);
       this.article.replies.map(reply => {
         this.$set(reply, "create_at_time", getTimeFromNow(reply.create_at));
         /* 手动给回复的内容（rich-text富文本）加上样式 - 文章回复 */

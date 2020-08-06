@@ -8,9 +8,11 @@ export const richTextHandingObj = {
   "tbody>\n": "tbody>",
   "td>\n": "td>",
   "tfoot>\n": "tfoot>",
-  // 2.换行符默认会被清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
+  // 2.hr标签追加样式
+  "<hr": "<hr style='background:#eee;height:1px;border:none;'",
+  // 3.换行符默认会被清空，手动设置为<br>标签又含高度，因此用一个看不见的<hr>来代替
   "\n": "<hr style='width:0;height:0;visibility:hidden;'>",
-  // 3.其他标签追加样式
+  // 4.其他标签追加样式
   "<h1":
     "<h1 style='font-size: 2em;line-height: 1.2em;margin: 0.67em 0;border-bottom: 1px solid #eee;word-break: break-word;'",
   "<h2":
@@ -35,6 +37,3 @@ export const richTextHandingObj = {
     "<th style='overflow:auto;background:#f8f8f8;padding:5px;border:1px solid #e0e0e0;'",
   "<td": "<td style='overflow:auto;padding:5px;border:1px solid #e0e0e0;'",
 };
-
-// this.$set(this.article, "content", this.article.content.replace(new RegExp("<td", "gi"),
-//   "<td style=\"overflow:auto;padding:5px;border:1px solid #e0e0e0;\" "));
