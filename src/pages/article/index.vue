@@ -6,18 +6,21 @@
     <!-- content -->
     <div class="container-content-common">
 
-      <!-- <scroll-view scroll-y> -->
+      <scroll-view scroll-y
+                   :scroll-top="scrollTop"
+                   scroll-with-animation
+                   @scroll="scroll">
 
-      <!-- 内容 -->
-      <div class="container-content-common-content"
-           v-if="article">
-        <!-- 标题 -->
-        <div class="article-title">
-          <div v-if="article.top"
-               class="cell-tag"
-               :style="{background: article.top || article.good ? '#80bd01' : '#e5e5e5',
+        <!-- 内容 -->
+        <div class="container-content-common-content"
+             v-if="article">
+          <!-- 标题 -->
+          <div class="article-title">
+            <div v-if="article.top"
+                 class="cell-tag"
+                 :style="{background: article.top || article.good ? '#80bd01' : '#e5e5e5',
                           color: article.top || article.good ? '#fff' : '#999'}">
-            {{
+              {{
                 article.top
                   ? "置顶"
                   : article.good
@@ -30,26 +33,26 @@
                   ? "招聘"
                   : ""
               }}
+            </div>
+            {{ article.title }}
+            <!-- <div class="article-title line-block">{{article.title}}</div> -->
           </div>
-          {{ article.title }}
-          <!-- <div class="article-title line-block">{{article.title}}</div> -->
-        </div>
-        <div class="cell">
-          <div class="cell-time">
-            &bull;&nbsp;发布于&nbsp;{{ article.create_at_time }}
-          </div>
-          <div class="cell-time">
-            &bull;&nbsp;作者
-            <span @click="goToUser(article.author.loginname)">
-              {{ article.author.loginname }}
-            </span>
-          </div>
-          <div class="cell-time">
-            &bull;&nbsp;{{ article.visit_count }} 次浏览
-          </div>
-          <div class="cell-time">
-            &bull;&nbsp;来自
-            {{
+          <div class="cell">
+            <div class="cell-time">
+              &bull;&nbsp;发布于&nbsp;{{ article.create_at_time }}
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;作者
+              <span @click="goToUser(article.author.loginname)">
+                {{ article.author.loginname }}
+              </span>
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;{{ article.visit_count }} 次浏览
+            </div>
+            <div class="cell-time">
+              &bull;&nbsp;来自
+              {{
                 article.tab === "share"
                   ? "分享"
                   : article.tab === "ask"
@@ -58,65 +61,65 @@
                   ? "招聘"
                   : ""
               }}
+            </div>
           </div>
-        </div>
 
-        <hr />
+          <hr />
 
-        <!-- 内容 -->
-        <!-- 使用wxParse渲染会导致页面卡顿，暂无解，用rich-text代替 -->
-        <!-- <wxParse :content="article.content"
+          <!-- 内容 -->
+          <!-- 使用wxParse渲染会导致页面卡顿，暂无解，用rich-text代替 -->
+          <!-- <wxParse :content="article.content"
                    :imageProp="{mode:'widthFix'}"
                    @navigate="navigate"></wxParse> -->
 
-        <!-- 使用原生组件渲染富文本 -->
-        <div class="article-content">
-          <rich-text :nodes="article.content"
-                     type="html"></rich-text>
+          <!-- 使用原生组件渲染富文本 -->
+          <div class="article-content">
+            <rich-text :nodes="article.content"
+                       type="html"></rich-text>
+          </div>
+
         </div>
 
-      </div>
+        <!-- 回复 -->
+        <div class="reply"
+             v-if="article">
+          <div v-if="article.reply_count!==0"
+               class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
 
-      <!-- 回复 -->
-      <div class="reply"
-           v-if="article">
-        <div v-if="article.reply_count!==0"
-             class="reply-count">{{ article.reply_count }}&nbsp;回复</div>
+          <div v-for="(reply, i) in article.replies"
+               :key="i"
+               class="reply-block"
+               :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }">
+            <img class="reply-block-avator inline-block"
+                 :src="reply.author.avatar_url"
+                 @click="goToUser(reply.author.loginname)" />
+            <span class="reply-block-author bold inline-block"
+                  @click="goToUser(reply.author.loginname)">
+              {{ reply.author.loginname }}
+            </span>
+            <span class="reply-block-time inline-block ">
+              {{ i + 1 }}楼&bull;{{ reply.create_at_time }}
+            </span>
+            <span v-if="article.author.loginname === reply.author.loginname"
+                  class="reply-block-tag inline-block ">作者</span>
+            <span class="reply-block-good"
+                  v-if="reply.ups.length > 0">
+              <img src="../../../static/images/good.png" />
+              <span class="reply-block-good-num">{{ reply.ups.length }}</span>
+            </span>
 
-        <div v-for="(reply, i) in article.replies"
-             :key="i"
-             class="reply-block"
-             :style="{ background: reply.ups.length < 3 ? '#fff' : '#f4fcf0' }">
-          <img class="reply-block-avator inline-block"
-               :src="reply.author.avatar_url"
-               @click="goToUser(reply.author.loginname)" />
-          <span class="reply-block-author bold inline-block"
-                @click="goToUser(reply.author.loginname)">
-            {{ reply.author.loginname }}
-          </span>
-          <span class="reply-block-time inline-block ">
-            {{ i + 1 }}楼&bull;{{ reply.create_at_time }}
-          </span>
-          <span v-if="article.author.loginname === reply.author.loginname"
-                class="reply-block-tag inline-block ">作者</span>
-          <span class="reply-block-good"
-                v-if="reply.ups.length > 0">
-            <img src="../../../static/images/good.png" />
-            <span class="reply-block-good-num">{{ reply.ups.length }}</span>
-          </span>
-
-          <!-- 循环wxParse时，若数据量较大会直接造成页面卡死，wxParse的问题暂无解，用rich-text代替 -->
-          <!-- <wxParse :content="reply.content"
+            <!-- 循环wxParse时，若数据量较大会直接造成页面卡死，wxParse的问题暂无解，用rich-text代替 -->
+            <!-- <wxParse :content="reply.content"
                      :imageProp="{mode:'widthFix'}"
                      @navigate="navigate"></wxParse> -->
 
-          <!-- 使用原生组件循环富文本 -->
-          <rich-text :nodes="reply.content"></rich-text>
+            <!-- 使用原生组件循环富文本 -->
+            <rich-text :nodes="reply.content"></rich-text>
 
+          </div>
         </div>
-      </div>
 
-      <!-- </scroll-view> -->
+      </scroll-view>
 
       <back-to-top :backToTopDisplay="backToTopDisplay"
                    @back-top="scrollTop=10;scrollTop=0">
@@ -195,6 +198,7 @@ export default {
     },
     // 页面跳转 - user
     goToUser (name) {
+      this.scrollTop = this.scrollTopTemp; // 保留scrollTop滑动距离
       wx.navigateTo({
         url: `/pages/user/main?name=${name}`
       });

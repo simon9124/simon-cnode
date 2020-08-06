@@ -4,6 +4,7 @@ let mixin = {
       dataStack: [], // 解决mpvue相同组件数据不更新问题，建立栈堆
       scrollTop: null, // scroll-view 距离顶部的滚动高度
       backToTopDisplay: false, // "回到顶部" 是否显示
+      scrollTopTemp: null, // scroll-view 距离顶部的滚动高度 - 临时变量
     };
   },
   onUnload() {
@@ -16,8 +17,8 @@ let mixin = {
     // 监听scroll-view滚动
     scroll(e) {
       // console.log(e);
-      // this.scrollTopTemp = e.mp.detail.scrollTop;
       this.backToTopDisplay = e.mp.detail.scrollTop > 250;
+      this.scrollTopTemp = e.mp.detail.scrollTop; // 保留scrollTop滑动距离 -> 存给临时变量
     },
   },
 };

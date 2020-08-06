@@ -133,12 +133,14 @@ export default {
     },
     // 页面跳转 - article
     goToArticle (i) {
+      this.scrollTop = this.scrollTopTemp; // 保留scrollTop滑动距离
       wx.navigateTo({
         url: `/pages/article/main?id=${this.articles[i].id}`
       });
     },
     // 页面跳转 - user
     goToUser (name) {
+      this.scrollTop = this.scrollTopTemp; // 保留scrollTop滑动距离
       wx.navigateTo({
         url: `/pages/user/main?name=${name}`
       });
