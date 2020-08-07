@@ -1,6 +1,5 @@
 import Vue from "vue";
 import App from "./index";
-import mixin from "@/mixins/backToTop.mixin.js"; // 引入mixin文件
 
 // add this to handle exception
 Vue.config.errorHandler = function (err) {
@@ -8,7 +7,6 @@ Vue.config.errorHandler = function (err) {
     console.error(err);
   }
 };
-Vue.mixin(mixin);
 
 const app = new Vue(App);
 app.$mount();
