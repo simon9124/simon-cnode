@@ -16,14 +16,14 @@ const navList = [
     title: "关于",
     type: "about",
   },
-  {
-    title: "注册",
-    type: "register",
-  },
-  {
-    title: "登录",
-    type: "login",
-  },
+  // {
+  //   title: "注册",
+  //   type: "register",
+  // },
+  // {
+  //   title: "登录",
+  //   type: "login",
+  // },
 ];
 
 // 帖子标签

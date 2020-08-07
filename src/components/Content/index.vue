@@ -21,12 +21,12 @@
         <swiper-item>
           <about-page></about-page>
         </swiper-item>
-        <swiper-item>
+        <!-- <swiper-item>
           <register-page></register-page>
-        </swiper-item>
-        <swiper-item>
+        </swiper-item> -->
+        <!-- <swiper-item>
           <login-page></login-page>
-        </swiper-item>
+        </swiper-item> -->
       </swiper>
 
     </div>

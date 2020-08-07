@@ -105,6 +105,16 @@ export default {
       ] // 用户话题类型列表：最近创建 & 最近参与
     };
   },
+  computed: {
+    // 转发的标题
+    shareTitle () {
+      if (this.userInfo !== null) return `${this.userInfo.loginname}的主页`;
+    },
+    // 转发的封面图
+    shareImage () {
+      if (this.userInfo !== null) return this.userInfo.avatar_url;
+    }
+  },
   onLoad () {
     this.getData();
   },
@@ -181,13 +191,13 @@ export default {
     // 页面跳转 - topic
     goToTopicList (type) {
       wx.navigateTo({
-        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&type=${type}&topicList=${encodeURIComponent(JSON.stringify(this.userInfo[type]))}`
+        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&userAvatar=${encodeURIComponent(this.userInfo.avatar_url)}&type=${type}&topicList=${encodeURIComponent(JSON.stringify(this.userInfo[type]))}`
       });
     },
     // 页面跳转 - collect
     goToCollectList () {
       wx.navigateTo({
-        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&type=topic_collect&topicList=${encodeURIComponent(JSON.stringify(this.userCollectList))}`
+        url: `/pages/user/topic/main?user=${this.userInfo.loginname}&userAvatar=${encodeURIComponent(this.userInfo.avatar_url)}&type=topic_collect&topicList=${encodeURIComponent(JSON.stringify(this.userCollectList))}`
       });
     }
   }

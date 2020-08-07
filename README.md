@@ -126,6 +126,41 @@ app.$mount();
 - mpvue 不支持 vue 的 transition 标签，使用原生 css3 动画代替
 - mpvue 已暂停更新，在最新版开发者工具打开会有很多 `warnings`，不影响开发和调试，可以屏蔽掉
 - 在 mpvue 使用 wxParse 会造成页面非常卡顿，已放弃，使用原生 rich-text 代替
+- mpvue 分享到好友圈：与 methods 同级的方法 onShareAppMessage
+
+```js
+onShareAppMessage(res) {
+  return {
+    title: "", // 标题
+    path: "", // 页面路径
+    imageUrl: "" // 封面图路径
+  };
+},
+```
+
+- mpvue 未更新并追加 "分享到好友圈" 功能，需在 `node_modules\mpvue\index.js` 里做追加处理：
+
+```js
+// 用户点击右上角分享
+onShareAppMessage: ...
+
+// 分享朋友圈
+onShareTimeline: rootVueVM.$options.onShareTimeline
+  ? function (options) { return callHook$1(rootVueVM, "onShareTimeline", options); } : null,
+```
+
+然后在 LIFECYCLE_HOOKS 数组中把 onShareTimeline 添加进去
+
+```js
+var LIFECYCLE_HOOKS = [
+  ...
+  "onShareAppMessage",
+  "onShareTimeline",
+  ...
+];
+```
+
+打包后就可以解决啦，详见 https://developers.weixin.qq.com/community/develop/doc/0006ee9d7f8ca02d43aaccd9351400?jumpto=reply&parent_commentid=0008204abb0e40e681aa2c5265b8&commentid=000c02efd1c128a688aaa94ad56c。
 
 **mpvue-wxParse 小程序富文本**
 

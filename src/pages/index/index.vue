@@ -16,7 +16,9 @@ export default {
     ContentContainer
   },
   data () {
-    return {};
+    return {
+      shareTitle: "cnode中文社区" // 转发的标题
+    };
   },
   methods: {}
 };

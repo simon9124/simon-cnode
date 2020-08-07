@@ -148,6 +148,12 @@ export default {
       article: null,
     };
   },
+  computed: {
+    // 转发的标题
+    shareTitle () {
+      if (this.article !== null) return this.article.title;
+    }
+  },
   onLoad () {
     this.getData();
   },

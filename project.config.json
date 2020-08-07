@@ -24,8 +24,12 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false,
+		"useMultiFrameRuntime": false,
+		"useApiHook": false,
+		"packNpmManually": false,
+		"packNpmRelationList": []
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
@@ -33,7 +37,7 @@
 	"projectname": "simon-cnode",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"libVersion": "2.12.0",
+	"libVersion": "2.12.1",
 	"condition": {
 		"search": {
 			"current": -1,

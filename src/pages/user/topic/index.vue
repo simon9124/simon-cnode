@@ -52,7 +52,18 @@ export default {
       topicList: [], // 话题列表 - 当页
       page: 1,// 当前页码
       limit: 10, // 每页主题数量
+      userAvatar: "",
     };
+  },
+  computed: {
+    // 转发的标题
+    shareTitle () {
+      return this.title;
+    },
+    // 转发的封面图
+    shareImage () {
+      return this.userAvatar;
+    }
   },
   onLoad () {
     this.initData();
@@ -62,6 +73,7 @@ export default {
     initData () {
       this.user = this.$root.$mp.query.user;
       this.type = this.$root.$mp.query.type;
+      this.userAvatar = decodeURIComponent(this.$root.$mp.query.userAvatar);
       const type =
         this.type === "recent_topics" ? " 创建" :
           this.type === "recent_replies" ? " 参与" : " 收藏";

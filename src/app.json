@@ -10,7 +10,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#444",
-    "navigationBarTitleText": "cnode社区",
+    "navigationBarTitleText": "cnode",
     "navigationBarTextStyle": "white"
   },
   "networkTimeout": {

@@ -21,5 +21,18 @@ let mixin = {
       this.scrollTopTemp = e.mp.detail.scrollTop; // 保留scrollTop滑动距离 -> 存给临时变量
     },
   },
+  // 分享给好友
+  onShareAppMessage(res) {
+    return {
+      title: this.shareTitle,
+    };
+  },
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: this.shareTitle,
+      imageUrl: this.shareImage || "",
+    };
+  },
 };
 export default mixin;
