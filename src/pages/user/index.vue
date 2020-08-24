@@ -129,6 +129,9 @@ export default {
       const { name } = this.$root.$mp.query;
       this.userInfo = (await getUser(name)).data;
       this.userCollectList = (await getUserCollect(name)).data;
+      this.userCollectList.forEach(list => {
+        this.$delete(list, "content");
+      });
 
       // 用户注册了github -> 调用github接口
       this.userInfo.githubUsername !== undefined &&
