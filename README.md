@@ -144,7 +144,7 @@ onShareAppMessage(res) {
 // 用户点击右上角分享
 onShareAppMessage: ...
 
-// 分享朋友圈
+// 追加：分享朋友圈
 onShareTimeline: rootVueVM.$options.onShareTimeline
   ? function (options) { return callHook$1(rootVueVM, "onShareTimeline", options); } : null,
 ```
