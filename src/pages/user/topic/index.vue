@@ -97,7 +97,13 @@ export default {
     goBackUser () {
       var pages = getCurrentPages(); //当前页面
       var beforePage = pages[pages.length - 2]; //前一页
-      wx.navigateBack();
+      if (beforePage !== undefined) {
+        wx.navigateBack();
+      } else {
+        wx.navigateTo({
+          url: `/pages/user/main?name=${this.user}`
+        });
+      }
     },
     // 页面跳转 - user
     goToUser (name) {
