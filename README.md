@@ -16,7 +16,7 @@
 
 ## 扫码体验（已上线）
 
-<img width="300" src="https://mmbiz.qpic.cn/mmbiz_png/Tlm6c1DNgXSibgCoGYB2kdrJSFga9jBiacCm0P6bSeAEIk7LRibNQ1b4VyHlqPJiaJJeMghHPp06Jhh9tZYGJIDTKQ/0?wx_fmt=png">
+<img width="200" src="https://mmbiz.qpic.cn/mmbiz_png/Tlm6c1DNgXSibgCoGYB2kdrJSFga9jBiacCm0P6bSeAEIk7LRibNQ1b4VyHlqPJiaJJeMghHPp06Jhh9tZYGJIDTKQ/0?wx_fmt=png">
 
 ## 踩坑
 
@@ -26,54 +26,18 @@
 
 ## 安装使用
 
-**下载启动步骤：**
-
 ```bash
 1.  git clone https://github.com/simon9124/simon-cnode.git；
-2.
- # install dependencies
-npm install
+2.  # install dependencies
+    npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+    # serve with hot reload at localhost:8080
+    npm run dev
 
-# build for production with minification
-npm run build
+    # build for production with minification
+    npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
+    # build for production and view the bundle analyzer report
+    npm run build --report
 3.  小程序开发工具指向下面的 dist 目录
-```
-
-**mpvue 构建新项目步骤：**
-
-```bash
-# 初始化项目
-vue init mpvue/mpvue-quickstart myproject
-cd myproject
-
-# 安装依赖
-yarn
-
-# 开发时构建
-npm dev
-
-# 打包构建
-npm build
-
-# 指定平台的开发时构建(微信、百度、头条、支付宝)
-npm dev:wx
-npm dev:swan
-npm dev:tt
-npm dev:my
-
-# 指定平台的打包构建
-npm build:wx
-npm build:swan
-npm build:tt
-npm build:my
-
-# 生成 bundle 分析报告
-npm run build --report
 ```
