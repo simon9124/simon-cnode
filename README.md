@@ -14,6 +14,10 @@
 - [mpvue-weui](https://github.com/MPComponent/mpvue-weui) - 基于 mpvue 的 weui 框架
 - [iview-weapp](https://github.com/TalkingData/iview-weapp) - 一套高质量的微信小程序 UI 组件库（无法引入）
 
+## 扫码体验（已上线）
+
+<img width="300" src="https://mmbiz.qpic.cn/mmbiz_png/Tlm6c1DNgXSibgCoGYB2kdrJSFga9jBiacCm0P6bSeAEIk7LRibNQ1b4VyHlqPJiaJJeMghHPp06Jhh9tZYGJIDTKQ/0?wx_fmt=png">
+
 ## 踩坑
 
 - <a href="https://github.com/simon9124/simon-cnode/blob/master/src/issues/%E5%B0%8F%E7%A8%8B%E5%BA%8F.md" target="_blank">小程序踩坑 →</a>
