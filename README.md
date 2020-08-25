@@ -17,8 +17,9 @@
 ## 效果预览（已上线）
 
 <img width="200" src="https://mmbiz.qpic.cn/mmbiz_png/Tlm6c1DNgXSibgCoGYB2kdrJSFga9jBiacCm0P6bSeAEIk7LRibNQ1b4VyHlqPJiaJJeMghHPp06Jhh9tZYGJIDTKQ/0?wx_fmt=png">
-<img src="https://mmbiz.qpic.cn/mmbiz_gif/Tlm6c1DNgXSGNNYBPoVuvUyPyGCpeNsWInvtp1uZuQjcOPRWhhfx6kqyQnNru5UF9UwfH6LIPsZyMIa99LDHJQ/0?wx_fmt=gif">
-<img src="https://mmbiz.qpic.cn/mmbiz_gif/Tlm6c1DNgXSGNNYBPoVuvUyPyGCpeNsWuUgTtibxDyJHFqeOImNTib1qkaYhkjFwDfb5ibCrZ5MknjmPmiciaQuyPQQ/0?wx_fmt=gif">
+
+![cmd-markdown-logo](https://mmbiz.qpic.cn/mmbiz_gif/Tlm6c1DNgXSGNNYBPoVuvUyPyGCpeNsWInvtp1uZuQjcOPRWhhfx6kqyQnNru5UF9UwfH6LIPsZyMIa99LDHJQ/0?wx_fmt=gif)
+![cmd-markdown-logo](https://mmbiz.qpic.cn/mmbiz_gif/Tlm6c1DNgXSGNNYBPoVuvUyPyGCpeNsWuUgTtibxDyJHFqeOImNTib1qkaYhkjFwDfb5ibCrZ5MknjmPmiciaQuyPQQ/0?wx_fmt=gif)
 
 ## 踩坑
 
